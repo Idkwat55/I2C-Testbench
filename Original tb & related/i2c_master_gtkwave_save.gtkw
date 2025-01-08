@@ -1,0 +1,168 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Mon Jan 06 08:46:46 2025
+[*]
+[dumpfile] "C:\Users\risik\Downloads\I2C to test\verilog-i2c\tb\test_i2c_master.lxt"
+[dumpfile_mtime] "Mon Jan 06 07:00:50 2025"
+[dumpfile_size] 75368
+[savefile] "C:\Users\risik\Downloads\I2C to test\verilog-i2c\tb\i2c_master_gtkwave_save.gtkw"
+[timestart] 4402000
+[size] 1600 977
+[pos] -217 -217
+*-19.154303 6412000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test_i2c_master.
+[treeopen] test_i2c_master.UUT.
+[sst_width] 211
+[signals_width] 254
+[sst_expanded] 1
+[sst_vpaned_height] 287
+@22
+test_i2c_master.UUT.addr_next[6:0]
+test_i2c_master.UUT.addr_reg[6:0]
+test_i2c_master.UUT.bit_count_next[3:0]
+test_i2c_master.UUT.bit_count_reg[3:0]
+@28
+test_i2c_master.UUT.bus_active[0]
+test_i2c_master.UUT.bus_active_reg[0]
+test_i2c_master.UUT.bus_control[0]
+test_i2c_master.UUT.bus_control_next[0]
+test_i2c_master.UUT.bus_control_reg[0]
+test_i2c_master.UUT.busy[0]
+test_i2c_master.UUT.busy_reg[0]
+@29
+test_i2c_master.UUT.clk[0]
+@22
+test_i2c_master.UUT.data_next[7:0]
+test_i2c_master.UUT.data_reg[7:0]
+test_i2c_master.UUT.delay_next[16:0]
+test_i2c_master.UUT.delay_reg[16:0]
+@28
+test_i2c_master.UUT.delay_scl_next[0]
+test_i2c_master.UUT.delay_scl_reg[0]
+test_i2c_master.UUT.delay_sda_next[0]
+test_i2c_master.UUT.delay_sda_reg[0]
+test_i2c_master.UUT.last_next[0]
+test_i2c_master.UUT.last_reg[0]
+test_i2c_master.UUT.last_scl_i_reg[0]
+test_i2c_master.UUT.last_sda_i_reg[0]
+@22
+test_i2c_master.UUT.m_axis_data_tdata[7:0]
+test_i2c_master.UUT.m_axis_data_tdata_next[7:0]
+test_i2c_master.UUT.m_axis_data_tdata_reg[7:0]
+@28
+test_i2c_master.UUT.m_axis_data_tlast[0]
+test_i2c_master.UUT.m_axis_data_tlast_next[0]
+test_i2c_master.UUT.m_axis_data_tlast_reg[0]
+test_i2c_master.UUT.m_axis_data_tready[0]
+test_i2c_master.UUT.m_axis_data_tvalid[0]
+test_i2c_master.UUT.m_axis_data_tvalid_next[0]
+test_i2c_master.UUT.m_axis_data_tvalid_reg[0]
+test_i2c_master.UUT.missed_ack[0]
+test_i2c_master.UUT.missed_ack_next[0]
+test_i2c_master.UUT.missed_ack_reg[0]
+test_i2c_master.UUT.mode_read_next[0]
+test_i2c_master.UUT.mode_read_reg[0]
+test_i2c_master.UUT.mode_stop_next[0]
+test_i2c_master.UUT.mode_stop_reg[0]
+test_i2c_master.UUT.mode_write_multiple_next[0]
+test_i2c_master.UUT.mode_write_multiple_reg[0]
+test_i2c_master.UUT.phy_read_bit[0]
+test_i2c_master.UUT.phy_release_bus[0]
+test_i2c_master.UUT.phy_rx_data_next[0]
+test_i2c_master.UUT.phy_rx_data_reg[0]
+test_i2c_master.UUT.phy_start_bit[0]
+@22
+test_i2c_master.UUT.phy_state_next[4:0]
+test_i2c_master.UUT.phy_state_reg[4:0]
+@28
+test_i2c_master.UUT.phy_stop_bit[0]
+test_i2c_master.UUT.phy_tx_data[0]
+test_i2c_master.UUT.phy_write_bit[0]
+@22
+test_i2c_master.UUT.prescale[15:0]
+@28
+test_i2c_master.UUT.rst[0]
+@22
+test_i2c_master.UUT.s_axis_cmd_address[6:0]
+@28
+test_i2c_master.UUT.s_axis_cmd_read[0]
+test_i2c_master.UUT.s_axis_cmd_ready[0]
+test_i2c_master.UUT.s_axis_cmd_ready_next[0]
+test_i2c_master.UUT.s_axis_cmd_ready_reg[0]
+test_i2c_master.UUT.s_axis_cmd_start[0]
+test_i2c_master.UUT.s_axis_cmd_stop[0]
+test_i2c_master.UUT.s_axis_cmd_valid[0]
+test_i2c_master.UUT.s_axis_cmd_write[0]
+test_i2c_master.UUT.s_axis_cmd_write_multiple[0]
+@22
+test_i2c_master.UUT.s_axis_data_tdata[7:0]
+@28
+test_i2c_master.UUT.s_axis_data_tlast[0]
+test_i2c_master.UUT.s_axis_data_tready[0]
+test_i2c_master.UUT.s_axis_data_tready_next[0]
+test_i2c_master.UUT.s_axis_data_tready_reg[0]
+test_i2c_master.UUT.s_axis_data_tvalid[0]
+test_i2c_master.UUT.scl_i[0]
+test_i2c_master.UUT.scl_i_reg[0]
+test_i2c_master.UUT.scl_negedge[0]
+test_i2c_master.UUT.scl_o[0]
+test_i2c_master.UUT.scl_o_next[0]
+test_i2c_master.UUT.scl_o_reg[0]
+test_i2c_master.UUT.scl_posedge[0]
+test_i2c_master.UUT.scl_t[0]
+test_i2c_master.UUT.sda_i[0]
+test_i2c_master.UUT.sda_i_reg[0]
+test_i2c_master.UUT.sda_negedge[0]
+test_i2c_master.UUT.sda_o[0]
+test_i2c_master.UUT.sda_o_next[0]
+test_i2c_master.UUT.sda_o_reg[0]
+test_i2c_master.UUT.sda_posedge[0]
+test_i2c_master.UUT.sda_t[0]
+test_i2c_master.UUT.start_bit[0]
+@22
+test_i2c_master.UUT.state_next[4:0]
+test_i2c_master.UUT.state_reg[4:0]
+@28
+test_i2c_master.UUT.stop_bit[0]
+test_i2c_master.UUT.stop_on_idle[0]
+test_i2c_master.bus_active[0]
+test_i2c_master.bus_control[0]
+test_i2c_master.busy[0]
+test_i2c_master.clk[0]
+@22
+test_i2c_master.current_test[7:0]
+test_i2c_master.m_axis_data_tdata[7:0]
+@28
+test_i2c_master.m_axis_data_tlast[0]
+test_i2c_master.m_axis_data_tready[0]
+test_i2c_master.m_axis_data_tvalid[0]
+test_i2c_master.missed_ack[0]
+@22
+test_i2c_master.prescale[15:0]
+@28
+test_i2c_master.rst[0]
+@22
+test_i2c_master.s_axis_cmd_address[6:0]
+@28
+test_i2c_master.s_axis_cmd_read[0]
+test_i2c_master.s_axis_cmd_ready[0]
+test_i2c_master.s_axis_cmd_start[0]
+test_i2c_master.s_axis_cmd_stop[0]
+test_i2c_master.s_axis_cmd_valid[0]
+test_i2c_master.s_axis_cmd_write[0]
+test_i2c_master.s_axis_cmd_write_multiple[0]
+@22
+test_i2c_master.s_axis_data_tdata[7:0]
+@28
+test_i2c_master.s_axis_data_tlast[0]
+test_i2c_master.s_axis_data_tready[0]
+test_i2c_master.s_axis_data_tvalid[0]
+test_i2c_master.scl_i[0]
+test_i2c_master.scl_o[0]
+test_i2c_master.scl_t[0]
+test_i2c_master.sda_i[0]
+test_i2c_master.sda_o[0]
+test_i2c_master.sda_t[0]
+test_i2c_master.stop_on_idle[0]
+[pattern_trace] 1
+[pattern_trace] 0
