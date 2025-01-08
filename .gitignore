@@ -1,0 +1,5 @@
+.vscode/
+.settings/
+.project
+*.xml
+*.code-workspace
