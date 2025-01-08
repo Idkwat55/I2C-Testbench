@@ -1,5 +1,11 @@
 .vscode/
 .settings/
+work/
 .project
 *.xml
 *.code-workspace
+*.out
+*.bak
+*.mpf
+*.mti
+*.json
