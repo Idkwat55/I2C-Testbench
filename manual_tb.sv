@@ -429,7 +429,7 @@ module manual_tb;
     {rst_m1,rst_m2,rst_s1,rst_s2,rst_s3} = 5'b00000 ;
     $fdisplay(console,"\t [testbench] Reset LOW for m1 m2 s1 s2 s3 ");
     #100;
-    {enable_s1,enable_s2,enable_s3} = 3''b111;
+    {enable_s1,enable_s2,enable_s3} = 3'b111;
     $fdisplay(console,"\t [testbench] Enable HIGH for     s1 s2 s3 ");
     // Slave 1
     device_address_s1 = 7'h22;
