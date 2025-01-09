@@ -22,9 +22,9 @@ module manual_tb;
     reg s_axis_cmd_write_multiple_m1 = 0;
     reg s_axis_cmd_stop_m1 = 0;
     reg s_axis_cmd_valid_m1 = 0;
-    reg [7:0] s_axis_data_tdata_m1 = 0;
-    reg s_axis_data_tvalid_m1 = 0;
-    reg s_axis_data_tlast_m1 = 0;
+    wire [7:0] s_axis_data_tdata_m1 = 0;
+    wire s_axis_data_tvalid_m1 = 0;
+    wire s_axis_data_tlast_m1 = 0;
     reg m_axis_data_tready_m1 = 0;
     reg scl_i_m1 = 1;
     reg sda_i_m1 = 1;
@@ -54,9 +54,9 @@ module manual_tb;
     reg s_axis_cmd_write_multiple_m2 = 0;
     reg s_axis_cmd_stop_m2 = 0;
     reg s_axis_cmd_valid_m2 = 0;
-    reg [7:0] s_axis_data_tdata_m2 = 0;
-    reg s_axis_data_tvalid_m2 = 0;
-    reg s_axis_data_tlast_m2 = 0;
+    wire [7:0] s_axis_data_tdata_m2 = 0;
+    wire s_axis_data_tvalid_m2 = 0;
+    wire s_axis_data_tlast_m2 = 0;
     reg m_axis_data_tready_m2 = 0;
     reg scl_i_m2 = 1;
     reg sda_i_m2 = 1;
@@ -80,8 +80,8 @@ module manual_tb;
 
     // Slave 1 Inputs
     reg release_bus_s1 = 0;
-    reg [7:0] s_axis_data_tdata_s1 = 0;
-    reg s_axis_data_tvalid_s1 = 0;
+    wire [7:0] s_axis_data_tdata_s1 = 0;
+    wire s_axis_data_tvalid_s1 = 0;
     reg s_axis_data_tlast_s1 = 0;
     reg m_axis_data_tready_s1 = 0;
     reg scl_i_s1 = 1;
@@ -106,8 +106,8 @@ module manual_tb;
 
     // Slave 2 Inputs
     reg release_bus_s2 = 0;
-    reg [7:0] s_axis_data_tdata_s2 = 0;
-    reg s_axis_data_tvalid_s2 = 0;
+    wire [7:0] s_axis_data_tdata_s2 = 0;
+    wire s_axis_data_tvalid_s2 = 0;
     reg s_axis_data_tlast_s2 = 0;
     reg m_axis_data_tready_s2 = 0;
     reg scl_i_s2 = 1;
@@ -133,8 +133,8 @@ module manual_tb;
 
     // Slave 3 Inputs
     reg release_bus_s3 = 0;
-    reg [7:0] s_axis_data_tdata_s3 = 0;
-    reg s_axis_data_tvalid_s3 = 0;
+    wire [7:0] s_axis_data_tdata_s3 = 0;
+    wire s_axis_data_tvalid_s3 = 0;
     reg s_axis_data_tlast_s3 = 0;
     reg m_axis_data_tready_s3 = 0;
     reg scl_i_s3 = 1;
@@ -319,6 +319,7 @@ module manual_tb;
     assign sda_o_s2 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
     assign sda_o_s3 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
 
+    reg [2:0]sel_mux;
     reg [7:0] streamGen_Din ;
     reg streamGen_push , streamGen_op_en ;
     reg streamGen_clk, streamGen_rst;
@@ -338,7 +339,7 @@ module manual_tb;
     .empty(streamGen_empty ), .full(streamGen_full )
 );
 
-module mux(
+ muxDataGen muxDatagen_init(
     .sel(sel_mux),
     .tdata(streamGen_tdata),
     .tvalid(streamGen_tvalid),
@@ -349,8 +350,8 @@ module mux(
     .tdata_s2(s_axis_data_tdata_s2), .tdata_s3(s_axis_data_tdata_s3),
     .tvalid_m1(s_axis_data_tvalid_m1), .tvalid_m2(s_axis_data_tvalid_m2),
     .tvalid_s1(s_axis_data_tvalid_s1), .tvalid_s2(s_axis_data_tvalid_s2), .tvalid_s3(s_axis_data_tvalid_s3),
-    .tlast_m1(s_axis_data_tlast_m1), .tlast_m2(s_axis_data_tlast_m1), .tlast_s1(s_axis_data_tlast_m1),
-    .tlast_s2(s_axis_data_tlast_m1),.tlast_s3(s_axis_data_tlast_m1),
+    .tlast_m1(s_axis_data_tlast_m1), .tlast_m2(s_axis_data_tlast_m2), .tlast_s1(s_axis_data_tlast_s1),
+    .tlast_s2(s_axis_data_tlast_s2),.tlast_s3(s_axis_data_tlast_s3),
     .tready(streamGen_tready)
 );
 
@@ -385,35 +386,55 @@ module mux(
 
 
     end : clk_genBLkc
-
-
-    initial begin
-
-
-        integer log_file;
+    
+    
+    integer log_file;
         integer console;
 
 
-
-        // Open files for producer and consumer
-        log_file = $fopen("LOG_FILE.log");
-
-
-        // Combine files for broadcast
-        console = log_file  | 32'b1;
+    initial
+  begin : main_initial
 
 
-        // Log final message to both files
-        $fdisplay(console, "\t\t STARTED TESTBENCH [ Simulation Time :%0t ns/ps ] \t", $time);
-        $fmonitor(console," ")
 
-        for ( i = 0; i <= 15; i = i +  1) begin
-            streamGen_Din_m1 <= 0;
-            rst_
-        end
 
-        // Close files
-        $fclose(log_file);
+    log_file = $fopen("TESTBENCH.log");
+
+    // Combine files for broadcast
+    console =   log_file | 32'b1;
+
+    // Log final message to both files
+    $fdisplay(console, "\t\t STARTED TESTBENCH [ Simulation Time : %t ns/ps ] \t", $realtime);
+
+    {rst_m1,rst_m2,rst_s1,rst_s2,rst_s3} = 5'b11111 ;
+    $fdisplay(console,"\t [%t]  Reset  HIGH for \t m1 m2 s1 s2 s3 ", $realtime);
+    #100;
+    {rst_m1,rst_m2,rst_s1,rst_s2,rst_s3} = 5'b00000 ;
+    $fdisplay(console,"\t [%t]  Reset  LOW  for \t m1 m2 s1 s2 s3 ", $realtime);
+    #100;
+    {enable_s1,enable_s2,enable_s3} = 3'b111;
+    $fdisplay(console,"\t [%t]  Enable HIGH for \t       s1 s2 s3 ", $realtime);
+
+    // Slave 1
+    device_address_s1 = 7'h22;
+    // Slave 2
+    device_address_s2 = 7'h2a;
+    // Slave 3
+    device_address_s3 = 7'h37;
+    {device_address_mask_s1, device_address_mask_s2, device_address_mask_s3} = {3{7'h7f}};
+
+    $fdisplay(console,"\t [%t]  Slave 1 assigned Address : 0b%b (%d) \n\t [%t]  Slave 2 assigned Address : 0b%b (%d) \n\t [%t]  Slave 3 assigned Address : 0b%b (%d) ",
+      $realtime, device_address_s1, device_address_s1, $realtime, device_address_s2, device_address_s2, $realtime, device_address_s3, device_address_s3);
+    #100;
+    prescale_m1 = 'd2; prescale_m2 = 'd2;
+    $fdisplay(console,"\t [%t]  Prescale set to 0b%b (%d) ", $realtime, prescale_m1, prescale_m1); #100;
+    $fdisplay(console,"\t [%t]  Stop_on_idle set to HIGH ", $realtime);
+
+
+
+    // Annouce END & Close files
+    $fdisplay(console, "\t\t END OF TEST [ Simulation tIme : %t ns/ps ] \t", $realtime);
+    $fclose(log_file);
 
     end
 endmodule
