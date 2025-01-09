@@ -499,10 +499,10 @@ if (m_axis_data_tvalid_m1) begin
        s_axis_cmd_valid_m2 = 1;
 
        #10; 
-
+           
        s_axis_cmd_read_m2 = 0;
        s_axis_cmd_start_m2 = 0;
-
+           
        $fdisplay(log_file, "Master 2 requested to read from Slave at address %h", s_axis_cmd_address_m2);
 
        // Wait for the slave to respond with data
