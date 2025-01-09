@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-
+`default_nettype none
 
 module manual_tb;
   // _g - global
@@ -9,7 +9,6 @@ module manual_tb;
   clk_s1 =0, clk_s2 =0, clk_s3 =0,
   rst_m1 = 0, rst_m2 = 0,
   rst_s1 = 0, rst_s2 = 0, rst_s3 = 0;
-  reg [15:0] prescale_g = 0;
   reg stop_on_idle_g = 0;
 
   reg FILTER_LEN = 'd4;
@@ -129,7 +128,6 @@ module manual_tb;
   wire [6:0] bus_address_s2;
   wire bus_addressed_s2;
   wire bus_active_s2;
-
 
   // Slave 3 Inputs
   reg release_bus_s3 = 0;
@@ -306,7 +304,6 @@ module manual_tb;
     .device_address_mask(device_address_mask_s3)
   );
 
-
   assign scl_o_m1 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
   assign scl_o_m2 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
   assign scl_o_s1 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
@@ -327,7 +324,6 @@ module manual_tb;
   wire  [3:0] streamGen_buff_count ;
   wire [7:0] streamGen_tdata;
   reg [2:0] sel_mux;
-
 
   stream_gen streamGen (
     .Din(streamGen_Din),
@@ -356,12 +352,6 @@ module manual_tb;
     .tlast_s2(s_axis_data_tlast_m1),.tlast_s3(s_axis_data_tlast_m1),
     .tready(streamGen_tready)
   );
-
-
-
-
-
-
 
   integer i;
 
@@ -399,56 +389,53 @@ module manual_tb;
         clk_s2= ~ clk_s2;
         #100;
       end
-
-
   end
+
+  integer log_file;
+  integer console;
 
   initial
   begin : main_initial
 
 
-    integer log_file;
-    integer console;
 
-    //sf
 
-    // Open files for producer and consumer
-    log_file = $fopen("LOG_FILE.log");
-
+    log_file = $fopen("TESTBENCH.log");
 
     // Combine files for broadcast
-    console = log_file  | 32'b1;
-
+    console =   log_file | 32'b1;
 
     // Log final message to both files
-    $fdisplay(console, "\t\t STARTED TESTBENCH [ Simulation Time :%t ns/ps ] \t", $time);
+    $fdisplay(console, "\t\t STARTED TESTBENCH [ Simulation Time : %t ns/ps ] \t", $realtime);
 
     {rst_m1,rst_m2,rst_s1,rst_s2,rst_s3} = 5'b11111 ;
-    $fdisplay(console,"\t [testbench] Reset HIGH for m1 m2 s1 s2 s3 ");
+    $fdisplay(console,"\t [%t]  Reset  HIGH for \t m1 m2 s1 s2 s3 ", $realtime);
     #100;
     {rst_m1,rst_m2,rst_s1,rst_s2,rst_s3} = 5'b00000 ;
-    $fdisplay(console,"\t [testbench] Reset LOW for m1 m2 s1 s2 s3 ");
+    $fdisplay(console,"\t [%t]  Reset  LOW  for \t m1 m2 s1 s2 s3 ", $realtime);
     #100;
     {enable_s1,enable_s2,enable_s3} = 3'b111;
-    $fdisplay(console,"\t [testbench] Enable HIGH for     s1 s2 s3 ");
+    $fdisplay(console,"\t [%t]  Enable HIGH for \t       s1 s2 s3 ", $realtime);
+
     // Slave 1
     device_address_s1 = 7'h22;
-    device_address_mask_s1 = 7'h7f;
     // Slave 2
     device_address_s2 = 7'h2a;
-    device_address_mask_s2 = 7'h7f;
     // Slave 3
-    device_address_s2 = 7'h37;
-    device_address_mask_s2 = 7'h7f;
+    device_address_s3 = 7'h37;
+    {device_address_mask_s1, device_address_mask_s2, device_address_mask_s3} = {3{7'h7f}};
 
-    $fdisplay(console,"\t [testbench]  Slave 1 assigned Address : 0b%b \n\t [testbench]  Slave 2 assigned Address : 0b%b \n\t [testbench]  Slave 3 assigned Address : 0b%b",
-    device_address_s1, device_address_s2, device_address_s3);
+    $fdisplay(console,"\t [%t]  Slave 1 assigned Address : 0b%b (%d) \n\t [%t]  Slave 2 assigned Address : 0b%b (%d) \n\t [%t]  Slave 3 assigned Address : 0b%b (%d) ",
+      $realtime, device_address_s1, device_address_s1, $realtime, device_address_s2, device_address_s2, $realtime, device_address_s3, device_address_s3);
     #100;
     prescale_m1 = 'd2; prescale_m2 = 'd2;
-    $fdisplay(console,"\t [testbench] Prescale set to 0b%b", prescale_m1);
+    $fdisplay(console,"\t [%t]  Prescale set to 0b%b (%d) ", $realtime, prescale_m1, prescale_m1); #100;
+    $fdisplay(console,"\t [%t]  Stop_on_idle set to HIGH ", $realtime);
 
-    // Close files
-    $fdisplay(console, "\t\t END OF TEST [ Simulation tIme : %t ns/ps ] \t", $time);
+
+
+    // Annouce END & Close files
+    $fdisplay(console, "\t\t END OF TEST [ Simulation tIme : %t ns/ps ] \t", $realtime);
     $fclose(log_file);
 
   end
