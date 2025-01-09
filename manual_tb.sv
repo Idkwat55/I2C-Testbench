@@ -353,13 +353,7 @@ module mux(
     .tlast_s2(s_axis_data_tlast_m1),.tlast_s3(s_axis_data_tlast_m1),
     .tready(streamGen_tready)
 );
-
-
-
-
-
-
-
+    
     integer i;
 
     initial begin : clk_genBLkc
@@ -414,8 +408,116 @@ module mux(
 
         // Close files
         $fclose(log_file);
-
     end
 endmodule
-    end module
+    //Test Bench
+{rst_m1, rst_s1} = 2'b11; 
+       #100; 
+{rst_m1, rst_s1} = 2'b00;
+    // Test Case01: Single Read Operation from Slave by Master 1
+       s_axis_cmd_address_m1 = 7'h22; // Address of Slave 1
+       s_axis_cmd_start_m1 = 1; 
+       s_axis_cmd_read_m1 = 1; 
+       s_axis_cmd_valid_m1 = 1;
+
+       #10; 
+    
+       s_axis_cmd_read_m1 = 0;
+       s_axis_cmd_start_m1 = 0;
+
+       $fdisplay(log_file, "Master 1 requested to read from Slave at address %h", s_axis_cmd_address_m1);
+if (m_axis_data_tvalid_m1) begin
+           $fdisplay(log_file, "Master 1 read data %h from Slave", m_axis_data_tdata_m1);
+           if (m_axis_data_tdata_m1 == m_axis_data_tdata_s1) begin
+               $fdisplay(log_file, "Test Passed: Correct data received from Slave.");
+           end else begin
+               $fdisplay(log_file, "Test Failed: Expected %h but received %h", m_axis_data_tdata_s1, m_axis_data_tdata_m1);
+           end
+       end else begin
+           $fdisplay(log_file, "Test Failed: No valid data received from Slave.");
+       end
+    
+    // Test Case02: Single Write Operation from Master 1 to Slave 1
+       s_axis_cmd_address_m1 = 7'h22; // Address of Slave 1
+       s_axis_cmd_start_m1 = 1; 
+       s_axis_cmd_write_m1 = 1; 
+       s_axis_data_tdata_m1 = 'hAA; // Data to write
+       s_axis_cmd_valid_m1 = 1;
+
+       #10; 
+
+       s_axis_cmd_write_m1 = 0; 
+       s_axis_cmd_start_m1 = 0;
+
+       $fdisplay(log_file, "Master 1 wrote %h to Slave at address %h", s_axis_data_tdata_m1, s_axis_cmd_address_m1);
+
+       // Wait for the slave to respond with data (if applicable)
+       #10;
+
+       if (m_axis_data_tvalid_s1) begin
+           $fdisplay(log_file, "Slave acknowledged data write.");
+           if (m_axis_data_tdata_s1 == s_axis_data_tdata_m1) begin
+               $fdisplay(log_file, "Test Passed: Correct data received by Slave.");
+           end else begin
+               $fdisplay(log_file, "Test Failed: Expected %h but received %h", s_axis_data_tdata_m1, m_axis_data_tdata_s1);
+           end
+       end else begin
+           $fdisplay(log_file, "Test Failed: No valid acknowledgment from Slave.");
+       end
+
+// Test Case03: Single Write Operation from Master 2 to Slave 1
+       s_axis_cmd_address_m2 = 7'h22; // Address of Slave 1
+       s_axis_cmd_start_m2 = 1; 
+       s_axis_cmd_write_m2 = 1; 
+       s_axis_data_tdata_m2 = 'hBB; // Data to write
+       s_axis_cmd_valid_m2 = 1;
+
+       #10; 
+
+       s_axis_cmd_write_m2 = 0; 
+       s_axis_cmd_start_m2 = 0;
+
+       $fdisplay(log_file, "Master 2 wrote %h to Slave at address %h", s_axis_data_tdata_m2, s_axis_cmd_address_m2);
+
+       // Wait for the slave to respond with acknowledgment (if applicable)
+       #10;
+
+       if (m_axis_data_tvalid_s1) begin
+           $fdisplay(log_file, "Slave acknowledged data write.");
+           if (m_axis_data_tdata_s1 == s_axis_data_tdata_m2) begin
+               $fdisplay(log_file, "Test Passed: Correct data received by Slave.");
+           end else begin
+               $fdisplay(log_file, "Test Failed: Expected %h but received %h", s_axis_data_tdata_m2, m_axis_data_tdata_s1);
+           end
+       end else begin
+           $fdisplay(log_file, "Test Failed: No valid acknowledgment from Slave.");
+           
+           // Test Case04: Single Read Operation from Slave by Master 2
+       s_axis_cmd_address_m2 = 7'h22; // Address of Slave 1
+       s_axis_cmd_start_m2 = 1; 
+       s_axis_cmd_read_m2 = 1; 
+       s_axis_cmd_valid_m2 = 1;
+
+       #10; 
+
+       s_axis_cmd_read_m2 = 0;
+       s_axis_cmd_start_m2 = 0;
+
+       $fdisplay(log_file, "Master 2 requested to read from Slave at address %h", s_axis_cmd_address_m2);
+
+       // Wait for the slave to respond with data
+       #10;
+
+       if (m_axis_data_tvalid_m2) begin
+           $fdisplay(log_file, "Master 2 read data %h from Slave", m_axis_data_tdata_m2);
+           if (m_axis_data_tdata_m2 == m_axis_data_tdata_s1) begin
+               $fdisplay(log_file, "Test Passed: Correct data received from Slave.");
+           end else begin
+               $fdisplay(log_file, "Test Failed: Expected %h but received %h", m_axis_data_tdata_s1, m_axis_data_tdata_m2);
+           end
+       end else begin
+           $fdisplay(log_file, "Test Failed: No valid data received from Slave.");
+       end
+           
+
         
