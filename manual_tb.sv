@@ -348,8 +348,8 @@ module manual_tb;
     .tdata_s2(s_axis_data_tdata_s2), .tdata_s3(s_axis_data_tdata_s3),
     .tvalid_m1(s_axis_data_tvalid_m1), .tvalid_m2(s_axis_data_tvalid_m2), .tvalid_s1(s_axis_data_tvalid_s1),
     .tvalid_s2(s_axis_data_tvalid_s2), .tvalid_s3(s_axis_data_tvalid_s3),
-    .tlast_m1(s_axis_data_tlast_m1), .tlast_m2(s_axis_data_tlast_m1), .tlast_s1(s_axis_data_tlast_m1),
-    .tlast_s2(s_axis_data_tlast_m1),.tlast_s3(s_axis_data_tlast_m1),
+    .tlast_m1(s_axis_data_tlast_m1), .tlast_m2(s_axis_data_tlast_m2), .tlast_s1(s_axis_data_tlast_s1),
+    .tlast_s2(s_axis_data_tlast_s2),.tlast_s3(s_axis_data_tlast_s3),
     .tready(streamGen_tready)
   );
 
@@ -386,10 +386,11 @@ module manual_tb;
       end
     forever
       begin
-        clk_s2= ~ clk_s2;
+        clk_s3= ~ clk_s3;
         #100;
       end
   end
+
 
   integer log_file;
   integer console;
@@ -404,6 +405,7 @@ module manual_tb;
 
     // Combine files for broadcast
     console =   log_file | 32'b1;
+
 
     // Log final message to both files
     $fdisplay(console, "\t\t STARTED TESTBENCH [ Simulation Time : %t ns/ps ] \t", $realtime);
@@ -433,11 +435,12 @@ module manual_tb;
     $fdisplay(console,"\t [%t]  Stop_on_idle set to HIGH ", $realtime);
 
 
-
     // Annouce END & Close files
-    $fdisplay(console, "\t\t END OF TEST [ Simulation tIme : %t ns/ps ] \t", $realtime);
+    $fdisplay(console, "\t\t  END OF TEST [ Simulation tIme : %t ns/ps ] \t", $realtime);
+    $display("\n\t\t  Log file is generated at pwd/TESTBENCH_LOG");
     $fclose(log_file);
-
+    $dumpfile("manual_tb_vcd.lxt");
+    $dumpvars;
   end
 
 endmodule
