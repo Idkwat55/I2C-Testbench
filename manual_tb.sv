@@ -317,10 +317,8 @@ module manual_tb;
   assign sda_o_s3 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
 
   reg [7:0] streamGen_Din ;
-  reg streamGen_push , streamGen_op_en ;
-  reg streamGen_clk, streamGen_rst;
-  wire streamGen_tready , streamGen_tlast ,
-  streamGen_empty , streamGen_full , streamGen_tvalid ;
+  reg streamGen_push , streamGen_op_en ,streamGen_clk, streamGen_rst, streamGen_tready ;
+  wire streamGen_tlast , streamGen_empty , streamGen_full , streamGen_tvalid ;
   wire  [3:0] streamGen_buff_count ;
   wire [7:0] streamGen_tdata;
   reg [2:0] sel_mux;
@@ -434,6 +432,7 @@ module manual_tb;
     $fdisplay(console,"\t [%t]  Prescale set to 0b%b (%d) ", $realtime, prescale_m1, prescale_m1); #100;
     $fdisplay(console,"\t [%t]  Stop_on_idle set to HIGH ", $realtime);
 
+    
 
     // Annouce END & Close files
     $fdisplay(console, "\t\t  END OF TEST [ Simulation tIme : %t ns/ps ] \t", $realtime);
