@@ -1,0 +1,1154 @@
+$date
+   Fri Jan 10 21:06:12 2025
+$end
+
+$version
+  2023.2
+  $dumpfile ("TESTBENCH_dump.vcd") 
+$end
+
+$timescale
+  1ps
+$end
+
+$scope module manual_tb $end
+$var reg 1 ! clk_m1 $end
+$var reg 1 " clk_m2 $end
+$var reg 1 # clk_s1 $end
+$var reg 1 $ clk_s2 $end
+$var reg 1 % clk_s3 $end
+$var reg 1 & rst_m1 $end
+$var reg 1 ' rst_m2 $end
+$var reg 1 ( rst_s1 $end
+$var reg 1 ) rst_s2 $end
+$var reg 1 * rst_s3 $end
+$var reg 1 + stop_on_idle_g $end
+$var reg 1 , FILTER_LEN $end
+$var reg 7 - s_axis_cmd_address_m1 [6:0] $end
+$var reg 1 . s_axis_cmd_start_m1 $end
+$var reg 1 / s_axis_cmd_read_m1 $end
+$var reg 1 0 s_axis_cmd_write_m1 $end
+$var reg 1 1 s_axis_cmd_write_multiple_m1 $end
+$var reg 1 2 s_axis_cmd_stop_m1 $end
+$var reg 1 3 s_axis_cmd_valid_m1 $end
+$var reg 8 4 s_axis_data_tdata_m1 [7:0] $end
+$var reg 1 5 s_axis_data_tvalid_m1 $end
+$var reg 1 6 s_axis_data_tlast_m1 $end
+$var reg 1 7 m_axis_data_tready_m1 $end
+$var reg 1 8 scl_i_m1 $end
+$var reg 1 9 sda_i_m1 $end
+$var reg 16 : prescale_m1 [15:0] $end
+$var reg 1 ; stop_on_idle_m1 $end
+$var wire 1 < s_axis_cmd_ready_m1 $end
+$var wire 1 = s_axis_data_tready_m1 $end
+$var wire 8 > m_axis_data_tdata_m1 [7:0] $end
+$var wire 1 ? m_axis_data_tvalid_m1 $end
+$var wire 1 @ m_axis_data_tlast_m1 $end
+$var wire 1 A scl_o_m1 $end
+$var wire 1 B scl_t_m1 $end
+$var wire 1 C sda_o_m1 $end
+$var wire 1 D sda_t_m1 $end
+$var wire 1 E busy_m1 $end
+$var wire 1 F bus_control_m1 $end
+$var wire 1 G bus_active_m1 $end
+$var wire 1 H missed_ack_m1 $end
+$var reg 7 I s_axis_cmd_address_m2 [6:0] $end
+$var reg 1 J s_axis_cmd_start_m2 $end
+$var reg 1 K s_axis_cmd_read_m2 $end
+$var reg 1 L s_axis_cmd_write_m2 $end
+$var reg 1 M s_axis_cmd_write_multiple_m2 $end
+$var reg 1 N s_axis_cmd_stop_m2 $end
+$var reg 1 O s_axis_cmd_valid_m2 $end
+$var reg 8 P s_axis_data_tdata_m2 [7:0] $end
+$var reg 1 Q s_axis_data_tvalid_m2 $end
+$var reg 1 R s_axis_data_tlast_m2 $end
+$var reg 1 S m_axis_data_tready_m2 $end
+$var reg 1 T scl_i_m2 $end
+$var reg 1 U sda_i_m2 $end
+$var reg 16 V prescale_m2 [15:0] $end
+$var reg 1 W stop_on_idle_m2 $end
+$var wire 1 X s_axis_cmd_ready_m2 $end
+$var wire 1 Y s_axis_data_tready_m2 $end
+$var wire 8 Z m_axis_data_tdata_m2 [7:0] $end
+$var wire 1 [ m_axis_data_tvalid_m2 $end
+$var wire 1 \ m_axis_data_tlast_m2 $end
+$var wire 1 ] scl_o_m2 $end
+$var wire 1 ^ scl_t_m2 $end
+$var wire 1 _ sda_o_m2 $end
+$var wire 1 ` sda_t_m2 $end
+$var wire 1 a busy_m2 $end
+$var wire 1 b bus_control_m2 $end
+$var wire 1 c bus_active_m2 $end
+$var wire 1 d missed_ack_m2 $end
+$var reg 1 e release_bus_s1 $end
+$var reg 8 f s_axis_data_tdata_s1 [7:0] $end
+$var reg 1 g s_axis_data_tvalid_s1 $end
+$var reg 1 h s_axis_data_tlast_s1 $end
+$var reg 1 i m_axis_data_tready_s1 $end
+$var reg 1 j scl_i_s1 $end
+$var reg 1 k sda_i_s1 $end
+$var reg 1 l enable_s1 $end
+$var reg 7 m device_address_s1 [6:0] $end
+$var reg 7 n device_address_mask_s1 [6:0] $end
+$var wire 1 o s_axis_data_tready_s1 $end
+$var wire 8 p m_axis_data_tdata_s1 [7:0] $end
+$var wire 1 q m_axis_data_tvalid_s1 $end
+$var wire 1 r m_axis_data_tlast_s1 $end
+$var wire 1 s scl_o_s1 $end
+$var wire 1 t scl_t_s1 $end
+$var wire 1 u sda_o_s1 $end
+$var wire 1 v sda_t_s1 $end
+$var wire 1 w busy_s1 $end
+$var wire 7 x bus_address_s1 [6:0] $end
+$var wire 1 y bus_addressed_s1 $end
+$var wire 1 z bus_active_s1 $end
+$var reg 1 { release_bus_s2 $end
+$var reg 8 | s_axis_data_tdata_s2 [7:0] $end
+$var reg 1 } s_axis_data_tvalid_s2 $end
+$var reg 1 ~ s_axis_data_tlast_s2 $end
+$var reg 1 !! m_axis_data_tready_s2 $end
+$var reg 1 "! scl_i_s2 $end
+$var reg 1 #! sda_i_s2 $end
+$var reg 1 $! enable_s2 $end
+$var reg 7 %! device_address_s2 [6:0] $end
+$var reg 7 &! device_address_mask_s2 [6:0] $end
+$var wire 1 '! s_axis_data_tready_s2 $end
+$var wire 8 (! m_axis_data_tdata_s2 [7:0] $end
+$var wire 1 )! m_axis_data_tvalid_s2 $end
+$var wire 1 *! m_axis_data_tlast_s2 $end
+$var wire 1 +! scl_o_s2 $end
+$var wire 1 ,! scl_t_s2 $end
+$var wire 1 -! sda_o_s2 $end
+$var wire 1 .! sda_t_s2 $end
+$var wire 1 /! busy_s2 $end
+$var wire 7 0! bus_address_s2 [6:0] $end
+$var wire 1 1! bus_addressed_s2 $end
+$var wire 1 2! bus_active_s2 $end
+$var reg 1 3! release_bus_s3 $end
+$var reg 8 4! s_axis_data_tdata_s3 [7:0] $end
+$var reg 1 5! s_axis_data_tvalid_s3 $end
+$var reg 1 6! s_axis_data_tlast_s3 $end
+$var reg 1 7! m_axis_data_tready_s3 $end
+$var reg 1 8! scl_i_s3 $end
+$var reg 1 9! sda_i_s3 $end
+$var reg 1 :! enable_s3 $end
+$var reg 7 ;! device_address_s3 [6:0] $end
+$var reg 7 <! device_address_mask_s3 [6:0] $end
+$var wire 1 =! s_axis_data_tready_s3 $end
+$var wire 8 >! m_axis_data_tdata_s3 [7:0] $end
+$var wire 1 ?! m_axis_data_tvalid_s3 $end
+$var wire 1 @! m_axis_data_tlast_s3 $end
+$var wire 1 A! scl_o_s3 $end
+$var wire 1 B! scl_t_s3 $end
+$var wire 1 C! sda_o_s3 $end
+$var wire 1 D! sda_t_s3 $end
+$var wire 1 E! busy_s3 $end
+$var wire 7 F! bus_address_s3 [6:0] $end
+$var wire 1 G! bus_addressed_s3 $end
+$var wire 1 H! bus_active_s3 $end
+$var wire 1 I! scl_i_m1_w $end
+$var wire 1 J! scl_i_m2_w $end
+$var wire 1 K! scl_i_s1_w $end
+$var wire 1 L! scl_i_s2_w $end
+$var wire 1 M! scl_i_s3_w $end
+$var reg 8 N! streamGen_Din [7:0] $end
+$var reg 1 O! streamGen_push $end
+$var reg 1 P! streamGen_op_en $end
+$var reg 1 Q! streamGen_clk $end
+$var reg 1 R! streamGen_rst $end
+$var reg 1 S! streamGen_en $end
+$var wire 1 T! streamGen_tready $end
+$var wire 1 U! streamGen_tlast $end
+$var wire 1 V! streamGen_empty $end
+$var wire 1 W! streamGen_full $end
+$var wire 1 X! streamGen_tvalid $end
+$var wire 4 Y! streamGen_buff_count [3:0] $end
+$var wire 8 Z! streamGen_tdata [7:0] $end
+$var reg 3 [! sel_mux [2:0] $end
+$var integer 32 \! i [31:0] $end
+$var integer 32 ]! log_file [31:0] $end
+$var integer 32 ^! console [31:0] $end
+$scope module master1 $end
+$var wire 1 _! clk $end
+$var wire 1 `! rst $end
+$var wire 7 a! s_axis_cmd_address [6:0] $end
+$var wire 1 b! s_axis_cmd_start $end
+$var wire 1 c! s_axis_cmd_read $end
+$var wire 1 d! s_axis_cmd_write $end
+$var wire 1 e! s_axis_cmd_write_multiple $end
+$var wire 1 f! s_axis_cmd_stop $end
+$var wire 1 g! s_axis_cmd_valid $end
+$var wire 1 < s_axis_cmd_ready $end
+$var wire 8 h! s_axis_data_tdata [7:0] $end
+$var wire 1 i! s_axis_data_tvalid $end
+$var wire 1 = s_axis_data_tready $end
+$var wire 1 j! s_axis_data_tlast $end
+$var wire 8 > m_axis_data_tdata [7:0] $end
+$var wire 1 ? m_axis_data_tvalid $end
+$var wire 1 k! m_axis_data_tready $end
+$var wire 1 @ m_axis_data_tlast $end
+$var wire 1 l! scl_i $end
+$var wire 1 A scl_o $end
+$var wire 1 B scl_t $end
+$var wire 1 m! sda_i $end
+$var wire 1 C sda_o $end
+$var wire 1 D sda_t $end
+$var wire 1 E busy $end
+$var wire 1 F bus_control $end
+$var wire 1 G bus_active $end
+$var wire 1 H missed_ack $end
+$var wire 16 n! prescale [15:0] $end
+$var wire 1 o! stop_on_idle $end
+$var reg 5 p! state_reg [4:0] $end
+$var reg 5 q! state_next [4:0] $end
+$var reg 5 r! phy_state_reg [4:0] $end
+$var reg 5 s! phy_state_next [4:0] $end
+$var reg 1 t! phy_start_bit $end
+$var reg 1 u! phy_stop_bit $end
+$var reg 1 v! phy_write_bit $end
+$var reg 1 w! phy_read_bit $end
+$var reg 1 x! phy_release_bus $end
+$var reg 1 y! phy_tx_data $end
+$var reg 1 z! phy_rx_data_reg $end
+$var reg 1 {! phy_rx_data_next $end
+$var reg 7 |! addr_reg [6:0] $end
+$var reg 7 }! addr_next [6:0] $end
+$var reg 8 ~! data_reg [7:0] $end
+$var reg 8 !" data_next [7:0] $end
+$var reg 1 "" last_reg $end
+$var reg 1 #" last_next $end
+$var reg 1 $" mode_read_reg $end
+$var reg 1 %" mode_read_next $end
+$var reg 1 &" mode_write_multiple_reg $end
+$var reg 1 '" mode_write_multiple_next $end
+$var reg 1 (" mode_stop_reg $end
+$var reg 1 )" mode_stop_next $end
+$var reg 17 *" delay_reg [16:0] $end
+$var reg 17 +" delay_next [16:0] $end
+$var reg 1 ," delay_scl_reg $end
+$var reg 1 -" delay_scl_next $end
+$var reg 1 ." delay_sda_reg $end
+$var reg 1 /" delay_sda_next $end
+$var reg 4 0" bit_count_reg [3:0] $end
+$var reg 4 1" bit_count_next [3:0] $end
+$var reg 1 2" s_axis_cmd_ready_reg $end
+$var reg 1 3" s_axis_cmd_ready_next $end
+$var reg 1 4" s_axis_data_tready_reg $end
+$var reg 1 5" s_axis_data_tready_next $end
+$var reg 8 6" m_axis_data_tdata_reg [7:0] $end
+$var reg 8 7" m_axis_data_tdata_next [7:0] $end
+$var reg 1 8" m_axis_data_tvalid_reg $end
+$var reg 1 9" m_axis_data_tvalid_next $end
+$var reg 1 :" m_axis_data_tlast_reg $end
+$var reg 1 ;" m_axis_data_tlast_next $end
+$var reg 1 <" scl_i_reg $end
+$var reg 1 =" sda_i_reg $end
+$var reg 1 >" scl_o_reg $end
+$var reg 1 ?" scl_o_next $end
+$var reg 1 @" sda_o_reg $end
+$var reg 1 A" sda_o_next $end
+$var reg 1 B" last_scl_i_reg $end
+$var reg 1 C" last_sda_i_reg $end
+$var reg 1 D" busy_reg $end
+$var reg 1 E" bus_active_reg $end
+$var reg 1 F" bus_control_reg $end
+$var reg 1 G" bus_control_next $end
+$var reg 1 H" missed_ack_reg $end
+$var reg 1 I" missed_ack_next $end
+$var wire 1 J" scl_posedge $end
+$var wire 1 K" scl_negedge $end
+$var wire 1 L" sda_posedge $end
+$var wire 1 M" sda_negedge $end
+$var wire 1 N" start_bit $end
+$var wire 1 O" stop_bit $end
+$upscope $end
+$scope module master2 $end
+$var wire 1 P" clk $end
+$var wire 1 Q" rst $end
+$var wire 7 R" s_axis_cmd_address [6:0] $end
+$var wire 1 S" s_axis_cmd_start $end
+$var wire 1 T" s_axis_cmd_read $end
+$var wire 1 U" s_axis_cmd_write $end
+$var wire 1 V" s_axis_cmd_write_multiple $end
+$var wire 1 W" s_axis_cmd_stop $end
+$var wire 1 X" s_axis_cmd_valid $end
+$var wire 1 X s_axis_cmd_ready $end
+$var wire 8 Y" s_axis_data_tdata [7:0] $end
+$var wire 1 Z" s_axis_data_tvalid $end
+$var wire 1 Y s_axis_data_tready $end
+$var wire 1 [" s_axis_data_tlast $end
+$var wire 8 Z m_axis_data_tdata [7:0] $end
+$var wire 1 [ m_axis_data_tvalid $end
+$var wire 1 \" m_axis_data_tready $end
+$var wire 1 \ m_axis_data_tlast $end
+$var wire 1 ]" scl_i $end
+$var wire 1 ] scl_o $end
+$var wire 1 ^ scl_t $end
+$var wire 1 ^" sda_i $end
+$var wire 1 _ sda_o $end
+$var wire 1 ` sda_t $end
+$var wire 1 a busy $end
+$var wire 1 b bus_control $end
+$var wire 1 c bus_active $end
+$var wire 1 d missed_ack $end
+$var wire 16 _" prescale [15:0] $end
+$var wire 1 `" stop_on_idle $end
+$var reg 5 a" state_reg [4:0] $end
+$var reg 5 b" state_next [4:0] $end
+$var reg 5 c" phy_state_reg [4:0] $end
+$var reg 5 d" phy_state_next [4:0] $end
+$var reg 1 e" phy_start_bit $end
+$var reg 1 f" phy_stop_bit $end
+$var reg 1 g" phy_write_bit $end
+$var reg 1 h" phy_read_bit $end
+$var reg 1 i" phy_release_bus $end
+$var reg 1 j" phy_tx_data $end
+$var reg 1 k" phy_rx_data_reg $end
+$var reg 1 l" phy_rx_data_next $end
+$var reg 7 m" addr_reg [6:0] $end
+$var reg 7 n" addr_next [6:0] $end
+$var reg 8 o" data_reg [7:0] $end
+$var reg 8 p" data_next [7:0] $end
+$var reg 1 q" last_reg $end
+$var reg 1 r" last_next $end
+$var reg 1 s" mode_read_reg $end
+$var reg 1 t" mode_read_next $end
+$var reg 1 u" mode_write_multiple_reg $end
+$var reg 1 v" mode_write_multiple_next $end
+$var reg 1 w" mode_stop_reg $end
+$var reg 1 x" mode_stop_next $end
+$var reg 17 y" delay_reg [16:0] $end
+$var reg 17 z" delay_next [16:0] $end
+$var reg 1 {" delay_scl_reg $end
+$var reg 1 |" delay_scl_next $end
+$var reg 1 }" delay_sda_reg $end
+$var reg 1 ~" delay_sda_next $end
+$var reg 4 !# bit_count_reg [3:0] $end
+$var reg 4 "# bit_count_next [3:0] $end
+$var reg 1 ## s_axis_cmd_ready_reg $end
+$var reg 1 $# s_axis_cmd_ready_next $end
+$var reg 1 %# s_axis_data_tready_reg $end
+$var reg 1 &# s_axis_data_tready_next $end
+$var reg 8 '# m_axis_data_tdata_reg [7:0] $end
+$var reg 8 (# m_axis_data_tdata_next [7:0] $end
+$var reg 1 )# m_axis_data_tvalid_reg $end
+$var reg 1 *# m_axis_data_tvalid_next $end
+$var reg 1 +# m_axis_data_tlast_reg $end
+$var reg 1 ,# m_axis_data_tlast_next $end
+$var reg 1 -# scl_i_reg $end
+$var reg 1 .# sda_i_reg $end
+$var reg 1 /# scl_o_reg $end
+$var reg 1 0# scl_o_next $end
+$var reg 1 1# sda_o_reg $end
+$var reg 1 2# sda_o_next $end
+$var reg 1 3# last_scl_i_reg $end
+$var reg 1 4# last_sda_i_reg $end
+$var reg 1 5# busy_reg $end
+$var reg 1 6# bus_active_reg $end
+$var reg 1 7# bus_control_reg $end
+$var reg 1 8# bus_control_next $end
+$var reg 1 9# missed_ack_reg $end
+$var reg 1 :# missed_ack_next $end
+$var wire 1 ;# scl_posedge $end
+$var wire 1 <# scl_negedge $end
+$var wire 1 =# sda_posedge $end
+$var wire 1 ># sda_negedge $end
+$var wire 1 ?# start_bit $end
+$var wire 1 @# stop_bit $end
+$upscope $end
+$scope module slave1 $end
+$var wire 1 A# clk $end
+$var wire 1 B# rst $end
+$var wire 1 C# release_bus $end
+$var wire 8 D# s_axis_data_tdata [7:0] $end
+$var wire 1 E# s_axis_data_tvalid $end
+$var wire 1 o s_axis_data_tready $end
+$var wire 1 F# s_axis_data_tlast $end
+$var wire 8 p m_axis_data_tdata [7:0] $end
+$var wire 1 q m_axis_data_tvalid $end
+$var wire 1 G# m_axis_data_tready $end
+$var wire 1 r m_axis_data_tlast $end
+$var wire 1 H# scl_i $end
+$var wire 1 s scl_o $end
+$var wire 1 t scl_t $end
+$var wire 1 I# sda_i $end
+$var wire 1 u sda_o $end
+$var wire 1 v sda_t $end
+$var wire 1 w busy $end
+$var wire 7 x bus_address [6:0] $end
+$var wire 1 y bus_addressed $end
+$var wire 1 z bus_active $end
+$var wire 1 J# enable $end
+$var wire 7 K# device_address [6:0] $end
+$var wire 7 L# device_address_mask [6:0] $end
+$var reg 5 M# state_reg [4:0] $end
+$var reg 5 N# state_next [4:0] $end
+$var reg 7 O# addr_reg [6:0] $end
+$var reg 7 P# addr_next [6:0] $end
+$var reg 8 Q# data_reg [7:0] $end
+$var reg 8 R# data_next [7:0] $end
+$var reg 1 S# data_valid_reg $end
+$var reg 1 T# data_valid_next $end
+$var reg 1 U# data_out_reg_valid_reg $end
+$var reg 1 V# data_out_reg_valid_next $end
+$var reg 1 W# last_reg $end
+$var reg 1 X# last_next $end
+$var reg 1 Y# mode_read_reg $end
+$var reg 1 Z# mode_read_next $end
+$var reg 4 [# bit_count_reg [3:0] $end
+$var reg 4 \# bit_count_next [3:0] $end
+$var reg 1 ]# s_axis_data_tready_reg $end
+$var reg 1 ^# s_axis_data_tready_next $end
+$var reg 8 _# m_axis_data_tdata_reg [7:0] $end
+$var reg 8 `# m_axis_data_tdata_next [7:0] $end
+$var reg 1 a# m_axis_data_tvalid_reg $end
+$var reg 1 b# m_axis_data_tvalid_next $end
+$var reg 1 c# m_axis_data_tlast_reg $end
+$var reg 1 d# m_axis_data_tlast_next $end
+$var reg 4 e# scl_i_filter [3:0] $end
+$var reg 4 f# sda_i_filter [3:0] $end
+$var reg 1 g# scl_i_reg $end
+$var reg 1 h# sda_i_reg $end
+$var reg 1 i# scl_o_reg $end
+$var reg 1 j# scl_o_next $end
+$var reg 1 k# sda_o_reg $end
+$var reg 1 l# sda_o_next $end
+$var reg 1 m# last_scl_i_reg $end
+$var reg 1 n# last_sda_i_reg $end
+$var reg 1 o# busy_reg $end
+$var reg 1 p# bus_active_reg $end
+$var reg 1 q# bus_addressed_reg $end
+$var reg 1 r# bus_addressed_next $end
+$var wire 1 s# scl_posedge $end
+$var wire 1 t# scl_negedge $end
+$var wire 1 u# sda_posedge $end
+$var wire 1 v# sda_negedge $end
+$var wire 1 w# start_bit $end
+$var wire 1 x# stop_bit $end
+$upscope $end
+$scope module slave2 $end
+$var wire 1 y# clk $end
+$var wire 1 z# rst $end
+$var wire 1 {# release_bus $end
+$var wire 8 |# s_axis_data_tdata [7:0] $end
+$var wire 1 }# s_axis_data_tvalid $end
+$var wire 1 '! s_axis_data_tready $end
+$var wire 1 ~# s_axis_data_tlast $end
+$var wire 8 (! m_axis_data_tdata [7:0] $end
+$var wire 1 )! m_axis_data_tvalid $end
+$var wire 1 !$ m_axis_data_tready $end
+$var wire 1 *! m_axis_data_tlast $end
+$var wire 1 "$ scl_i $end
+$var wire 1 +! scl_o $end
+$var wire 1 ,! scl_t $end
+$var wire 1 #$ sda_i $end
+$var wire 1 -! sda_o $end
+$var wire 1 .! sda_t $end
+$var wire 1 /! busy $end
+$var wire 7 0! bus_address [6:0] $end
+$var wire 1 1! bus_addressed $end
+$var wire 1 2! bus_active $end
+$var wire 1 $$ enable $end
+$var wire 7 %$ device_address [6:0] $end
+$var wire 7 &$ device_address_mask [6:0] $end
+$var reg 5 '$ state_reg [4:0] $end
+$var reg 5 ($ state_next [4:0] $end
+$var reg 7 )$ addr_reg [6:0] $end
+$var reg 7 *$ addr_next [6:0] $end
+$var reg 8 +$ data_reg [7:0] $end
+$var reg 8 ,$ data_next [7:0] $end
+$var reg 1 -$ data_valid_reg $end
+$var reg 1 .$ data_valid_next $end
+$var reg 1 /$ data_out_reg_valid_reg $end
+$var reg 1 0$ data_out_reg_valid_next $end
+$var reg 1 1$ last_reg $end
+$var reg 1 2$ last_next $end
+$var reg 1 3$ mode_read_reg $end
+$var reg 1 4$ mode_read_next $end
+$var reg 4 5$ bit_count_reg [3:0] $end
+$var reg 4 6$ bit_count_next [3:0] $end
+$var reg 1 7$ s_axis_data_tready_reg $end
+$var reg 1 8$ s_axis_data_tready_next $end
+$var reg 8 9$ m_axis_data_tdata_reg [7:0] $end
+$var reg 8 :$ m_axis_data_tdata_next [7:0] $end
+$var reg 1 ;$ m_axis_data_tvalid_reg $end
+$var reg 1 <$ m_axis_data_tvalid_next $end
+$var reg 1 =$ m_axis_data_tlast_reg $end
+$var reg 1 >$ m_axis_data_tlast_next $end
+$var reg 4 ?$ scl_i_filter [3:0] $end
+$var reg 4 @$ sda_i_filter [3:0] $end
+$var reg 1 A$ scl_i_reg $end
+$var reg 1 B$ sda_i_reg $end
+$var reg 1 C$ scl_o_reg $end
+$var reg 1 D$ scl_o_next $end
+$var reg 1 E$ sda_o_reg $end
+$var reg 1 F$ sda_o_next $end
+$var reg 1 G$ last_scl_i_reg $end
+$var reg 1 H$ last_sda_i_reg $end
+$var reg 1 I$ busy_reg $end
+$var reg 1 J$ bus_active_reg $end
+$var reg 1 K$ bus_addressed_reg $end
+$var reg 1 L$ bus_addressed_next $end
+$var wire 1 M$ scl_posedge $end
+$var wire 1 N$ scl_negedge $end
+$var wire 1 O$ sda_posedge $end
+$var wire 1 P$ sda_negedge $end
+$var wire 1 Q$ start_bit $end
+$var wire 1 R$ stop_bit $end
+$upscope $end
+$scope module slave3 $end
+$var wire 1 S$ clk $end
+$var wire 1 T$ rst $end
+$var wire 1 U$ release_bus $end
+$var wire 8 V$ s_axis_data_tdata [7:0] $end
+$var wire 1 W$ s_axis_data_tvalid $end
+$var wire 1 =! s_axis_data_tready $end
+$var wire 1 X$ s_axis_data_tlast $end
+$var wire 8 >! m_axis_data_tdata [7:0] $end
+$var wire 1 ?! m_axis_data_tvalid $end
+$var wire 1 Y$ m_axis_data_tready $end
+$var wire 1 @! m_axis_data_tlast $end
+$var wire 1 Z$ scl_i $end
+$var wire 1 A! scl_o $end
+$var wire 1 B! scl_t $end
+$var wire 1 [$ sda_i $end
+$var wire 1 C! sda_o $end
+$var wire 1 D! sda_t $end
+$var wire 1 E! busy $end
+$var wire 7 F! bus_address [6:0] $end
+$var wire 1 G! bus_addressed $end
+$var wire 1 H! bus_active $end
+$var wire 1 \$ enable $end
+$var wire 7 ]$ device_address [6:0] $end
+$var wire 7 ^$ device_address_mask [6:0] $end
+$var reg 5 _$ state_reg [4:0] $end
+$var reg 5 `$ state_next [4:0] $end
+$var reg 7 a$ addr_reg [6:0] $end
+$var reg 7 b$ addr_next [6:0] $end
+$var reg 8 c$ data_reg [7:0] $end
+$var reg 8 d$ data_next [7:0] $end
+$var reg 1 e$ data_valid_reg $end
+$var reg 1 f$ data_valid_next $end
+$var reg 1 g$ data_out_reg_valid_reg $end
+$var reg 1 h$ data_out_reg_valid_next $end
+$var reg 1 i$ last_reg $end
+$var reg 1 j$ last_next $end
+$var reg 1 k$ mode_read_reg $end
+$var reg 1 l$ mode_read_next $end
+$var reg 4 m$ bit_count_reg [3:0] $end
+$var reg 4 n$ bit_count_next [3:0] $end
+$var reg 1 o$ s_axis_data_tready_reg $end
+$var reg 1 p$ s_axis_data_tready_next $end
+$var reg 8 q$ m_axis_data_tdata_reg [7:0] $end
+$var reg 8 r$ m_axis_data_tdata_next [7:0] $end
+$var reg 1 s$ m_axis_data_tvalid_reg $end
+$var reg 1 t$ m_axis_data_tvalid_next $end
+$var reg 1 u$ m_axis_data_tlast_reg $end
+$var reg 1 v$ m_axis_data_tlast_next $end
+$var reg 4 w$ scl_i_filter [3:0] $end
+$var reg 4 x$ sda_i_filter [3:0] $end
+$var reg 1 y$ scl_i_reg $end
+$var reg 1 z$ sda_i_reg $end
+$var reg 1 {$ scl_o_reg $end
+$var reg 1 |$ scl_o_next $end
+$var reg 1 }$ sda_o_reg $end
+$var reg 1 ~$ sda_o_next $end
+$var reg 1 !% last_scl_i_reg $end
+$var reg 1 "% last_sda_i_reg $end
+$var reg 1 #% busy_reg $end
+$var reg 1 $% bus_active_reg $end
+$var reg 1 %% bus_addressed_reg $end
+$var reg 1 &% bus_addressed_next $end
+$var wire 1 '% scl_posedge $end
+$var wire 1 (% scl_negedge $end
+$var wire 1 )% sda_posedge $end
+$var wire 1 *% sda_negedge $end
+$var wire 1 +% start_bit $end
+$var wire 1 ,% stop_bit $end
+$upscope $end
+$scope module streamGen $end
+$var wire 8 -% Din [7:0] $end
+$var wire 1 .% push $end
+$var wire 1 /% clk $end
+$var wire 1 0% rst $end
+$var wire 1 1% op_en $end
+$var wire 1 2% en $end
+$var reg 4 3% buff_count [3:0] $end
+$var reg 8 4% tdata [7:0] $end
+$var reg 1 5% tvalid $end
+$var wire 1 T! tready $end
+$var reg 1 6% tlast $end
+$var reg 1 7% empty $end
+$var reg 1 8% full $end
+$var reg 4 9% count [3:0] $end
+$upscope $end
+$scope module muxDatagen_init $end
+$var wire 3 :% sel [2:0] $end
+$var wire 8 Z! tdata [7:0] $end
+$var wire 1 X! tvalid $end
+$var wire 1 U! tlast $end
+$var wire 1 = tready_m1 $end
+$var wire 1 Y tready_m2 $end
+$var wire 1 o tready_s1 $end
+$var wire 1 '! tready_s2 $end
+$var wire 1 =! tready_s3 $end
+$var reg 8 4 tdata_m1 [7:0] $end
+$var reg 8 P tdata_m2 [7:0] $end
+$var reg 8 f tdata_s1 [7:0] $end
+$var reg 8 | tdata_s2 [7:0] $end
+$var reg 8 4! tdata_s3 [7:0] $end
+$var reg 1 5 tvalid_m1 $end
+$var reg 1 Q tvalid_m2 $end
+$var reg 1 g tvalid_s1 $end
+$var reg 1 } tvalid_s2 $end
+$var reg 1 5! tvalid_s3 $end
+$var reg 1 6 tlast_m1 $end
+$var reg 1 R tlast_m2 $end
+$var reg 1 h tlast_s1 $end
+$var reg 1 ~ tlast_s2 $end
+$var reg 1 6! tlast_s3 $end
+$var reg 1 ;% tready $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+
+#504000
+$dumpvars
+1!
+0!!
+b0 !"
+b0 !#
+0!$
+1!%
+0"
+1"!
+0""
+b0 "#
+1"$
+1"%
+0#
+1#!
+0#"
+0##
+1#$
+0#%
+0$
+1$!
+0$"
+1$#
+1$$
+0$%
+0%
+b101010 %!
+0%"
+0%#
+b101010 %$
+0%%
+0&
+b1111111 &!
+0&"
+0&#
+b1111111 &$
+0&%
+0'
+0'!
+0'"
+b0 '#
+b0 '$
+0'%
+0(
+b0 (!
+0("
+b0 (#
+b0 ($
+0(%
+0)
+0)!
+0)"
+0)#
+b0 )$
+0)%
+0*
+0*!
+b0 *"
+0*#
+b0 *$
+0*%
+0+
+1+!
+b0 +"
+0+#
+b0 +$
+0+%
+0,
+1,!
+0,"
+0,#
+b0 ,$
+0,%
+b100010 -
+1-!
+0-"
+1-#
+0-$
+b1000100 -%
+0.
+1.!
+0."
+1.#
+0.$
+0.%
+0/
+0/!
+0/"
+1/#
+0/$
+0/%
+00
+b0 0!
+b0 0"
+10#
+00$
+00%
+11
+01!
+b0 1"
+11#
+01$
+11%
+12
+02!
+12"
+12#
+02$
+02%
+03
+03!
+13"
+13#
+03$
+bx 3%
+b0 4
+b0 4!
+04"
+14#
+04$
+b0 4%
+05
+05!
+05"
+05#
+b0 5$
+05%
+06
+06!
+b0 6"
+06#
+b0 6$
+06%
+07
+07!
+b0 7"
+07#
+07$
+17%
+18
+18!
+08"
+08#
+08$
+08%
+19
+19!
+09"
+09#
+b0 9$
+b0 9%
+b10 :
+1:!
+0:"
+0:#
+b0 :$
+b1 :%
+0;
+b110111 ;!
+0;"
+0;#
+0;$
+0;%
+1<
+b1111111 <!
+1<"
+0<#
+0<$
+0=
+0=!
+1="
+0=#
+0=$
+b0 >
+b0 >!
+1>"
+0>#
+0>$
+0?
+0?!
+1?"
+0?#
+b1111 ?$
+0@
+0@!
+1@"
+0@#
+b1111 @$
+1A
+1A!
+1A"
+0A#
+1A$
+1B
+1B!
+1B"
+0B#
+1B$
+1C
+1C!
+1C"
+0C#
+1C$
+1D
+1D!
+0D"
+b0 D#
+1D$
+0E
+0E!
+0E"
+0E#
+1E$
+0F
+b0 F!
+0F"
+0F#
+1F$
+0G
+0G!
+0G"
+0G#
+1G$
+0H
+0H!
+0H"
+1H#
+1H$
+b0 I
+1I!
+0I"
+1I#
+0I$
+0J
+1J!
+0J"
+1J#
+0J$
+0K
+1K!
+0K"
+b100010 K#
+0K$
+0L
+1L!
+0L"
+b1111111 L#
+0L$
+0M
+1M!
+0M"
+b0 M#
+0M$
+0N
+b1000100 N!
+0N"
+b0 N#
+0N$
+0O
+0O!
+0O"
+b0 O#
+0O$
+b0 P
+1P!
+0P"
+b0 P#
+0P$
+0Q
+0Q!
+0Q"
+b0 Q#
+0Q$
+0R
+0R!
+b0 R"
+b0 R#
+0R$
+0S
+0S!
+0S"
+0S#
+0S$
+1T
+0T!
+0T"
+0T#
+0T$
+1U
+0U!
+0U"
+0U#
+0U$
+b10 V
+1V!
+0V"
+0V#
+b0 V$
+0W
+0W!
+0W"
+0W#
+0W$
+0X
+0X!
+0X"
+0X#
+0X$
+0Y
+bx Y!
+b0 Y"
+0Y#
+0Y$
+b0 Z
+b0 Z!
+0Z"
+0Z#
+1Z$
+0[
+b1 [!
+0["
+b0 [#
+1[$
+0\
+bx \!
+0\"
+b0 \#
+1\$
+1]
+b10 ]!
+1]"
+0]#
+b110111 ]$
+1^
+b11 ^!
+1^"
+0^#
+b1111111 ^$
+1_
+1_!
+b10 _"
+b0 _#
+b0 _$
+1`
+0`!
+0`"
+b0 `#
+b0 `$
+0a
+b100010 a!
+b0 a"
+0a#
+b0 a$
+0b
+0b!
+b0 b"
+0b#
+b0 b$
+0c
+0c!
+b0 c"
+0c#
+b0 c$
+0d
+0d!
+b0 d"
+0d#
+b0 d$
+0e
+1e!
+0e"
+b1111 e#
+0e$
+b0 f
+1f!
+0f"
+b1111 f#
+0f$
+0g
+0g!
+0g"
+1g#
+0g$
+0h
+b0 h!
+0h"
+1h#
+0h$
+0i
+0i!
+0i"
+1i#
+0i$
+1j
+0j!
+0j"
+1j#
+0j$
+1k
+0k!
+0k"
+1k#
+0k$
+1l
+1l!
+0l"
+1l#
+0l$
+b100010 m
+1m!
+b0 m"
+1m#
+b0 m$
+b1111111 n
+b10 n!
+b0 n"
+1n#
+b0 n$
+0o
+0o!
+b0 o"
+0o#
+0o$
+b0 p
+b0 p!
+b0 p"
+0p#
+0p$
+0q
+b0 q!
+0q"
+0q#
+b0 q$
+0r
+b0 r!
+0r"
+0r#
+b0 r$
+1s
+b0 s!
+0s"
+0s#
+0s$
+1t
+0t!
+0t"
+0t#
+0t$
+1u
+0u!
+0u"
+0u#
+0u$
+1v
+0v!
+0v"
+0v#
+0v$
+0w
+0w!
+0w"
+0w#
+b1111 w$
+b0 x
+0x!
+0x"
+0x#
+b1111 x$
+0y
+0y!
+b0 y"
+0y#
+1y$
+0z
+0z!
+b0 z"
+0z#
+1z$
+0{
+0{!
+0{"
+0{#
+1{$
+b0 |
+b0 |!
+0|"
+b0 |#
+1|$
+0}
+b0 }!
+0}"
+0}#
+1}$
+0~
+b0 ~!
+0~"
+0~#
+1~$
+$end
+
+#550000
+0!
+0_!
+
+#600000
+1!
+1_!
+
+#650000
+0!
+0_!
+
+#700000
+1!
+1_!
+
+#750000
+0!
+0_!
+
+#800000
+1!
+1_!
+
+#850000
+0!
+0_!
+
+#900000
+1!
+1_!
+
+#950000
+0!
+0_!
+
+#1000000
+1!
+1_!
