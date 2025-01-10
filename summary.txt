@@ -1,27 +1,27 @@
-Project Start	    :	03/01/2025
-Project Goal	    :	Develop Testbench for I2C module
+Project Start	      :	03/01/2025
+Project Goal	      :	Develop Testbench for I2C module
 
 Files to work on    =
 
-i2c_master.v	    : 	897	lines
+i2c_master.v	      :	897	lines
 i2c_slave.v         :	506	lines
 test_i2c_maste.v    :	149	lines
 test_i2c_slave.v    :	134	lines
 test_i2c_master.py  :	466	lines
 	|_
-	| \_i2c.py  	:	514	lines
+	| \_i2c.py  	    :	514	lines
 	|_	
-	  \_axii.py 	:	546 lines
+	  \_axii.py 	    :	546 lines
 
-New concepts		:   myhdl
-						Iverilog
-						Gtkwave
-						Git
-						Multichannel Descriptors
-						VCD Dumps
+New concepts		    :   myhdl
+            						Iverilog
+						            Gtkwave
+						            Git
+						            Multichannel Descriptors
+						            VCD Dumps
 		
-Work 	     		:  Running pre-made testbenches.
-					   Analysis of multiple large files, finding and fixing bugs, git collaboartions, 
-					   testbench planning, realization (from observing pre-made testbenches).
+Work 	     		      :  Running pre-made testbenches.
+					             Analysis of multiple large files, finding and fixing bugs, git collaboartions, 
+					             testbench planning, realization (from observing pre-made testbenches).
 
-Result       	    :  471	lines
+Result       	      : 471 lines
