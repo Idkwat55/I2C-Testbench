@@ -303,18 +303,30 @@ module manual_tb;
     .device_address(device_address_s3),
     .device_address_mask(device_address_mask_s3)
   );
+  //creating wire to assign the scl and sda
+  wire scl_i_m1_w;
+  wire scl_i_m2_w;
+  wire scl_i_s1_w;
+  wire scl_i_s2_w;
+  wire scl_i_s3_w;
 
-  assign scl_i_m1 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
-  assign scl_i_m2 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
-  assign scl_i_s1 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
-  assign scl_i_s2 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
-  assign scl_i_s3 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+  wire sda_i_m1_w;
+  wire sda_i_m2_w;
+  wire sda_i_s1_w;
+  wire sda_i_s2_w;
+  wire sda_i_s3_w;
 
-  assign sda_i_m1 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
-  assign sda_i_m2 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
-  assign sda_i_s1 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
-  assign sda_i_s2 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
-  assign sda_i_s3 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+  assign scl_i_m1_w = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+  assign scl_i_m2_w = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+  assign scl_i_s1_w = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+  assign scl_i_s2_w = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+  assign scl_i_s3_w = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+
+  assign sda_i_m1_w = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+  assign sda_i_m2_w = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+  assign sda_i_s1_w = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+  assign sda_i_s2_w = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+  assign sda_i_s3_w = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
  
   reg [7:0] streamGen_Din =0 ;
   reg streamGen_push =0 , streamGen_op_en =0 ;
@@ -326,6 +338,44 @@ module manual_tb;
   wire [7:0] streamGen_tdata;
   reg [2:0] sel_mux = 3'd1;
 
+  //creating wires for use in  muxDatagen_init
+  wire [7:0] s_axis_data_tdata_m1_w;
+  wire [7:0] s_axis_data_tdata_m2_w;
+  wire s_axis_data_tvalid_m1_w;
+  wire s_axis_data_tvalid_m2_w;
+  wire s_axis_data_tdata_s1_w;
+  wire [7:0] s_axis_data_tdata_s2_w;
+  wire s_axis_data_tvalid_s1_w;
+  wire s_axis_data_tvalid_s2_w;
+  wire s_axis_data_tlast_m1_w;
+  wire s_axis_data_tlast_s2_w;
+  wire s_axis_data_tlast_s1_w; 
+  wire [7:0] s_axis_data_tdata_s3_w;
+  wire s_axis_data_tlast_m2_w;
+  wire s_axis_data_tlast_s3_w;
+  wire s_axis_data_tvalid_s3_w;
+  wire streamGen_tready_w;
+  
+  
+  
+  // assigning those dec wires
+  assign s_axis_data_tdata_m1_w=s_axis_data_tdata_m1;
+  assign  s_axis_data_tdata_m2_w= s_axis_data_tdata_m2;
+  assign s_axis_data_tvalid_m1_w=s_axis_data_tvalid_m1;
+  assign s_axis_data_tvalid_m2_w=s_axis_data_tvalid_m2;
+  assign s_axis_data_tdata_s1_w=s_axis_data_tdata_s1;
+  assign s_axis_data_tdata_s2_w=s_axis_data_tdata_s2;
+  assign s_axis_data_tvalid_s1_w=s_axis_data_tvalid_s1;
+  assign s_axis_data_tvalid_s2_w=s_axis_data_tvalid_s2;
+  assign s_axis_data_tlast_m1_w=s_axis_data_tlast_m1;
+  assign s_axis_data_tlast_s2_w=s_axis_data_tlast_s2;
+  assign s_axis_data_tlast_s1_w = s_axis_data_tlast_s1;
+  assign s_axis_data_tvalid_s3_w = s_axis_data_tvalid_s3;
+  assign s_axis_data_tdata_s3_w=s_axis_data_tdata_s3;
+  assign s_axis_data_tlast_m2_w = s_axis_data_tlast_m2;
+  assign s_axis_data_tlast_s3_w=s_axis_data_tlast_s3;
+  assign streamGen_tready_w=streamGen_tready;
+  
   stream_gen streamGen (
     .Din(streamGen_Din),
     .push(streamGen_push), .clk(streamGen_clk), .rst(streamGen_rst), .op_en(streamGen_op_en ),
@@ -345,13 +395,13 @@ module manual_tb;
     .tlast(streamGen_tlast),
     .tready_m1(s_axis_data_tready_m1), .tready_m2(s_axis_data_tready_m2), .tready_s1(s_axis_data_tready_s1),
     .tready_s2(s_axis_data_tready_s2), .tready_s3(s_axis_data_tready_s3),
-    .tdata_m1(s_axis_data_tdata_m1), .tdata_m2(s_axis_data_tdata_m2), .tdata_s1(s_axis_data_tdata_s1),
-    .tdata_s2(s_axis_data_tdata_s2), .tdata_s3(s_axis_data_tdata_s3),
-    .tvalid_m1(s_axis_data_tvalid_m1), .tvalid_m2(s_axis_data_tvalid_m2), .tvalid_s1(s_axis_data_tvalid_s1),
-    .tvalid_s2(s_axis_data_tvalid_s2), .tvalid_s3(s_axis_data_tvalid_s3),
-    .tlast_m1(s_axis_data_tlast_m1), .tlast_m2(s_axis_data_tlast_m2), .tlast_s1(s_axis_data_tlast_s1),
-    .tlast_s2(s_axis_data_tlast_s2),.tlast_s3(s_axis_data_tlast_s3),
-    .tready(streamGen_tready)
+    .tdata_m1(s_axis_data_tdata_m1_w), .tdata_m2(s_axis_data_tdata_m2_w), .tdata_s1(s_axis_data_tdata_s1_w),
+    .tdata_s2(s_axis_data_tdata_s2_w), .tdata_s3(s_axis_data_tdata_s3_w),
+    .tvalid_m1(s_axis_data_tvalid_m1_w), .tvalid_m2(s_axis_data_tvalid_m2_w), .tvalid_s1(s_axis_data_tvalid_s1_w),
+    .tvalid_s2(s_axis_data_tvalid_s2_w), .tvalid_s3(s_axis_data_tvalid_s3_w),
+    .tlast_m1(s_axis_data_tlast_m1_w), .tlast_m2(s_axis_data_tlast_m2_w), .tlast_s1(s_axis_data_tlast_s1_w),
+    .tlast_s2(s_axis_data_tlast_s2_w),.tlast_s3(s_axis_data_tlast_s3_w),
+    .tready(streamGen_tready_w)
   );
 
   integer i;
