@@ -304,23 +304,24 @@ module manual_tb;
     .device_address_mask(device_address_mask_s3)
   );
 
-  assign scl_o_m1 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
-  assign scl_o_m2 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
-  assign scl_o_s1 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
-  assign scl_o_s2 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
-  assign scl_o_s3 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
+  assign scl_i_m1 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+  assign scl_i_m2 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+  assign scl_i_s1 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+  assign scl_i_s2 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+  assign scl_i_s3 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
 
-  assign sda_o_m1 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
-  assign sda_o_m2 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
-  assign sda_o_s1 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
-  assign sda_o_s2 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
-  assign sda_o_s3 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
-
+  assign sda_i_m1 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+  assign sda_i_m2 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+  assign sda_i_s1 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+  assign sda_i_s2 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+  assign sda_i_s3 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+ 
   reg [7:0] streamGen_Din =0 ;
   reg streamGen_push =0 , streamGen_op_en =0 ;
   reg streamGen_clk = 0, streamGen_rst = 0;
   wire streamGen_tready , streamGen_tlast ,
   streamGen_empty , streamGen_full , streamGen_tvalid ;
+ 
   wire  [3:0] streamGen_buff_count ;
   wire [7:0] streamGen_tdata;
   reg [2:0] sel_mux = 3'd1;
@@ -404,14 +405,10 @@ module manual_tb;
   initial
   begin : main_initial
 
-
-
-
     log_file = $fopen("TESTBENCH.log");
 
     // Combine files for broadcast
     console =   log_file | 32'b1;
-
 
     // Log final message to both files
     $fdisplay(console, "\t\t STARTED TESTBENCH [ Simulation Time : %t ns/ps ] \t", $realtime);
@@ -440,6 +437,7 @@ module manual_tb;
     $fdisplay(console,"\t [%t]  Prescale set to 0b%b (%d) ", $realtime, prescale_m1, prescale_m1); #100;
     $fdisplay(console,"\t [%t]  Stop_on_idle set to HIGH ", $realtime);
 
+
     // Write Multiple
     // Write to address 7'h22 , the data 0x11223344, from master 1
     // Load data to stream gen
@@ -450,8 +448,6 @@ module manual_tb;
     //                      Addr, start, read, write, write_m, stop
 
     #50 ; // Sync to Master 1 clock 
-
-
 
     // Annouce END & Close files
     $fdisplay(console, "\t\t  END OF TEST [ Simulation tIme : %t ns/ps ] \t", $realtime);
