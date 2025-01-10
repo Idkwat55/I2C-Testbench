@@ -433,7 +433,7 @@ module manual_tb;
     $fdisplay(console,"\t [%t]  Prescale set to 0b%b (%d) ", $realtime, prescale_m1, prescale_m1); #100;
     $fdisplay(console,"\t [%t]  Stop_on_idle set to HIGH ", $realtime);
 
-    $fmonitor(console,"\t [Monitor] [stream_gen] : streamGen_Din = %b streamGen_push = %b , streamGen_op_en = %b streamGen_rst = %b streamGen_en = %b streamGen_tready = %b streamGen_tlast = %b streamGen_empty = %b streamGen_full = %b streamGen_tvalid = %b streamGen_buff_count = %b streamGen_tdata = %b",
+    $fmonitor(console,"\t [Monitor] [stream_gen] : streamGen_Din = %b streamGen_push = %b , streamGen_op_en = %b, streamGen_rst = %b, \n\t                    ----  streamGen_en = %b, streamGen_tready = %b, streamGen_tlast = %b, streamGen_empty = %b, \n\t                    ----  streamGen_full = %b, streamGen_tvalid = %b, streamGen_buff_count = %b, streamGen_tdata = %b",
       streamGen_Din , streamGen_push , streamGen_op_en , streamGen_rst , streamGen_en , streamGen_tready , streamGen_tlast ,
       streamGen_empty , streamGen_full , streamGen_tvalid , streamGen_buff_count , streamGen_tdata);
 

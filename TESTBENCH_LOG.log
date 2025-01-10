@@ -7,11 +7,21 @@
 	 [              200000]  Slave 3 assigned Address : 0b0110111 ( 55) 
 	 [              300000]  Prescale set to 0b0000000000000010 (    2) 
 	 [              400000]  Stop_on_idle set to HIGH 
-	 [Monitor] [stream_gen] : streamGen_Din = 00010001 streamGen_push = 1 , streamGen_op_en = 0 streamGen_rst = 0 streamGen_en = 1 streamGen_tready = 0 streamGen_tlast = 0 streamGen_empty = 1 streamGen_full = 0 streamGen_tvalid = 0 streamGen_buff_count = xxxx streamGen_tdata = 00000000
-	 [Monitor] [stream_gen] : streamGen_Din = 00100010 streamGen_push = 1 , streamGen_op_en = 0 streamGen_rst = 0 streamGen_en = 1 streamGen_tready = 0 streamGen_tlast = 0 streamGen_empty = 1 streamGen_full = 0 streamGen_tvalid = 0 streamGen_buff_count = xxxx streamGen_tdata = 00000000
-	 [Monitor] [stream_gen] : streamGen_Din = 00110011 streamGen_push = 1 , streamGen_op_en = 0 streamGen_rst = 0 streamGen_en = 1 streamGen_tready = 0 streamGen_tlast = 0 streamGen_empty = 1 streamGen_full = 0 streamGen_tvalid = 0 streamGen_buff_count = xxxx streamGen_tdata = 00000000
-	 [Monitor] [stream_gen] : streamGen_Din = 01000100 streamGen_push = 1 , streamGen_op_en = 0 streamGen_rst = 0 streamGen_en = 1 streamGen_tready = 0 streamGen_tlast = 0 streamGen_empty = 1 streamGen_full = 0 streamGen_tvalid = 0 streamGen_buff_count = xxxx streamGen_tdata = 00000000
-	 [Monitor] [stream_gen] : streamGen_Din = 01000100 streamGen_push = 0 , streamGen_op_en = 1 streamGen_rst = 0 streamGen_en = 0 streamGen_tready = 0 streamGen_tlast = 0 streamGen_empty = 1 streamGen_full = 0 streamGen_tvalid = 0 streamGen_buff_count = xxxx streamGen_tdata = 00000000
+	 [Monitor] [stream_gen] : streamGen_Din = 00010001 streamGen_push = 1 , streamGen_op_en = 0, streamGen_rst = 0, 
+	                    ----  streamGen_en = 1, streamGen_tready = 0, streamGen_tlast = 0, streamGen_empty = 1, 
+	                    ----  streamGen_full = 0, streamGen_tvalid = 0, streamGen_buff_count = xxxx, streamGen_tdata = 00000000
+	 [Monitor] [stream_gen] : streamGen_Din = 00100010 streamGen_push = 1 , streamGen_op_en = 0, streamGen_rst = 0, 
+	                    ----  streamGen_en = 1, streamGen_tready = 0, streamGen_tlast = 0, streamGen_empty = 1, 
+	                    ----  streamGen_full = 0, streamGen_tvalid = 0, streamGen_buff_count = xxxx, streamGen_tdata = 00000000
+	 [Monitor] [stream_gen] : streamGen_Din = 00110011 streamGen_push = 1 , streamGen_op_en = 0, streamGen_rst = 0, 
+	                    ----  streamGen_en = 1, streamGen_tready = 0, streamGen_tlast = 0, streamGen_empty = 1, 
+	                    ----  streamGen_full = 0, streamGen_tvalid = 0, streamGen_buff_count = xxxx, streamGen_tdata = 00000000
+	 [Monitor] [stream_gen] : streamGen_Din = 01000100 streamGen_push = 1 , streamGen_op_en = 0, streamGen_rst = 0, 
+	                    ----  streamGen_en = 1, streamGen_tready = 0, streamGen_tlast = 0, streamGen_empty = 1, 
+	                    ----  streamGen_full = 0, streamGen_tvalid = 0, streamGen_buff_count = xxxx, streamGen_tdata = 00000000
+	 [Monitor] [stream_gen] : streamGen_Din = 01000100 streamGen_push = 0 , streamGen_op_en = 1, streamGen_rst = 0, 
+	                    ----  streamGen_en = 0, streamGen_tready = 0, streamGen_tlast = 0, streamGen_empty = 1, 
+	                    ----  streamGen_full = 0, streamGen_tvalid = 0, streamGen_buff_count = xxxx, streamGen_tdata = 00000000
 		  END OF TEST [ Simulation tIme :               504000 ns/ps ] 	
 
 		  Log file is generated at pwd/TESTBENCH_LOG.log
