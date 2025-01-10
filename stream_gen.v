@@ -1,6 +1,6 @@
 module stream_gen (
     input wire [7:0] Din,
-    input wire push, clk, rst, op_en,
+    input wire push, clk, rst, op_en, en,
     output reg [3:0] buff_count,
 
     output reg [7:0] tdata,
@@ -14,10 +14,10 @@ module stream_gen (
     reg [7:0] buffer [15:0];
     reg [3:0] count; // Tracks the number of valid entries in the buffer
 
-    reg push_reg, push_edge;
+    //reg push_reg, push_edge;
 
     // Push edge detection
-    always @(posedge clk or posedge rst) begin
+/*    always @(posedge clk or posedge rst) begin
         if (rst) begin
             push_reg <= 0;
             push_edge <= 0;
@@ -25,7 +25,7 @@ module stream_gen (
             push_edge <= push & ~push_reg; // Rising edge detection
             push_reg <= push;
         end
-    end
+    end*/
 
     // Main logic
     always @(posedge clk or posedge rst) begin
@@ -72,7 +72,7 @@ module stream_gen (
                 tlast <= 0;
 
 
-                if (push_edge && !full) begin
+                if (en && !full) begin
                     buffer[count] <= Din; // Write new data
                     count <= count + 1;
                 end
