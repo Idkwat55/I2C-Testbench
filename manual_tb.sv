@@ -13,7 +13,7 @@ module manual_tb;
 
   reg FILTER_LEN = 'd4;
 
-  // Maaster 1 Inputs
+  // Master 1 Inputs
   reg [6:0] s_axis_cmd_address_m1 = 0;
   reg s_axis_cmd_start_m1 = 0;
   reg s_axis_cmd_read_m1 = 0;
@@ -316,14 +316,14 @@ module manual_tb;
   assign sda_o_s2 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
   assign sda_o_s3 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
 
-  reg [7:0] streamGen_Din ;
-  reg streamGen_push , streamGen_op_en ;
-  reg streamGen_clk, streamGen_rst;
+  reg [7:0] streamGen_Din =0 ;
+  reg streamGen_push =0 , streamGen_op_en =0 ;
+  reg streamGen_clk = 0, streamGen_rst = 0;
   wire streamGen_tready , streamGen_tlast ,
   streamGen_empty , streamGen_full , streamGen_tvalid ;
   wire  [3:0] streamGen_buff_count ;
   wire [7:0] streamGen_tdata;
-  reg [2:0] sel_mux;
+  reg [2:0] sel_mux = 3'd1;
 
   stream_gen streamGen (
     .Din(streamGen_Din),
@@ -362,6 +362,7 @@ module manual_tb;
     clk_s1 = 0;
     clk_s2 = 0;
     clk_s3 = 0;
+    streamGen_clk = 0;
     // Clock gen
     // m1 - 10Mhz, m2 100Mhz, s1 20Mhz, s2 50 Mhz, s3 5Mhz
     forever
@@ -389,6 +390,11 @@ module manual_tb;
         clk_s3= ~ clk_s3;
         #100;
       end
+    forever begin
+      streamGen_clk = ~ streamGen_clk;
+      #1;
+    end
+
   end
 
 
@@ -410,11 +416,11 @@ module manual_tb;
     // Log final message to both files
     $fdisplay(console, "\t\t STARTED TESTBENCH [ Simulation Time : %t ns/ps ] \t", $realtime);
 
-    {rst_m1,rst_m2,rst_s1,rst_s2,rst_s3} = 5'b11111 ;
-    $fdisplay(console,"\t [%t]  Reset  HIGH for \t m1 m2 s1 s2 s3 ", $realtime);
+    {rst_m1,rst_m2,rst_s1,rst_s2,rst_s3,streamGen_rst} = 6'b111111 ;
+    $fdisplay(console,"\t [%t]  Reset  HIGH for \t m1 m2 s1 s2 s3 stream_gen", $realtime);
     #100;
-    {rst_m1,rst_m2,rst_s1,rst_s2,rst_s3} = 5'b00000 ;
-    $fdisplay(console,"\t [%t]  Reset  LOW  for \t m1 m2 s1 s2 s3 ", $realtime);
+    {rst_m1,rst_m2,rst_s1,rst_s2,rst_s3,streamGen_rst} = 6'b000000 ;
+    $fdisplay(console,"\t [%t]  Reset  LOW  for \t m1 m2 s1 s2 s3 stream_gen", $realtime);
     #100;
     {enable_s1,enable_s2,enable_s3} = 3'b111;
     $fdisplay(console,"\t [%t]  Enable HIGH for \t       s1 s2 s3 ", $realtime);
@@ -433,6 +439,18 @@ module manual_tb;
     prescale_m1 = 'd2; prescale_m2 = 'd2;
     $fdisplay(console,"\t [%t]  Prescale set to 0b%b (%d) ", $realtime, prescale_m1, prescale_m1); #100;
     $fdisplay(console,"\t [%t]  Stop_on_idle set to HIGH ", $realtime);
+
+    // Write Multiple
+    // Write to address 7'h22 , the data 0x11223344, from master 1
+    // Load data to stream gen
+    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en} = {8'h11, 1, 0, 0}; #1;
+    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en} = {8'h22, 1, 0, 0}; #1;
+    {s_axis_cmd_address_m1, s_axis_cmd_start_m1, s_axis_cmd_read_m1, s_axis_cmd_write_m1, s_axis_cmd_write_multiple_m1,
+    s_axis_cmd_stop_m1} = {7'h22, 1'b0, 1'b0,  1'b0 ,    1'b1, 1'b1};
+    //                      Addr, start, read, write, write_m, stop
+
+    #50 ; // Sync to Master 1 clock 
+
 
 
     // Annouce END & Close files
