@@ -1,0 +1,90 @@
+i2c_slave.v:232: error: Net scl_posedge is not defined in this context.
+i2c_slave.v:233: error: Net scl_negedge is not defined in this context.
+i2c_slave.v:234: error: Net sda_posedge is not defined in this context.
+i2c_slave.v:235: error: Net sda_negedge is not defined in this context.
+i2c_slave.v:237: error: Net start_bit is not defined in this context.
+i2c_slave.v:238: error: Net stop_bit is not defined in this context.
+i2c_slave.v:264: error: Unable to bind wire/reg/memory `start_bit' in `manual_tb.slave1'
+i2c_slave.v:264: error: Unable to elaborate condition expression.
+i2c_slave.v:481: error: Unable to bind wire/reg/memory `start_bit' in `manual_tb.slave1'
+i2c_slave.v:481: error: Unable to elaborate condition expression.
+i2c_slave.v:232: error: Net scl_posedge is not defined in this context.
+i2c_slave.v:233: error: Net scl_negedge is not defined in this context.
+i2c_slave.v:234: error: Net sda_posedge is not defined in this context.
+i2c_slave.v:235: error: Net sda_negedge is not defined in this context.
+i2c_slave.v:237: error: Net start_bit is not defined in this context.
+i2c_slave.v:238: error: Net stop_bit is not defined in this context.
+i2c_slave.v:264: error: Unable to bind wire/reg/memory `start_bit' in `manual_tb.slave2'
+i2c_slave.v:264: error: Unable to elaborate condition expression.
+i2c_slave.v:481: error: Unable to bind wire/reg/memory `start_bit' in `manual_tb.slave2'
+i2c_slave.v:481: error: Unable to elaborate condition expression.
+i2c_slave.v:232: error: Net scl_posedge is not defined in this context.
+i2c_slave.v:233: error: Net scl_negedge is not defined in this context.
+i2c_slave.v:234: error: Net sda_posedge is not defined in this context.
+i2c_slave.v:235: error: Net sda_negedge is not defined in this context.
+i2c_slave.v:237: error: Net start_bit is not defined in this context.
+i2c_slave.v:238: error: Net stop_bit is not defined in this context.
+i2c_slave.v:264: error: Unable to bind wire/reg/memory `start_bit' in `manual_tb.slave3'
+i2c_slave.v:264: error: Unable to elaborate condition expression.
+i2c_slave.v:481: error: Unable to bind wire/reg/memory `start_bit' in `manual_tb.slave3'
+i2c_slave.v:481: error: Unable to elaborate condition expression.
+manual_tb.sv:307: error: reg scl_i_m1; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:308: error: reg scl_i_m2; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:309: error: reg scl_i_s1; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:310: error: reg scl_i_s2; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:311: error: reg scl_i_s3; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:313: error: reg sda_i_m1; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:314: error: reg sda_i_m2; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:315: error: reg sda_i_s1; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:316: error: reg sda_i_s2; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:317: error: reg sda_i_s3; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:349: error: reg s_axis_data_tdata_m1; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:349: error: Output port expression must support continuous assignment.
+manual_tb.sv:349:      : Port 10 (tdata_m1) of muxDataGen is connected to s_axis_data_tdata_m1
+manual_tb.sv:349: error: reg s_axis_data_tdata_m2; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:349: error: Output port expression must support continuous assignment.
+manual_tb.sv:349:      : Port 11 (tdata_m2) of muxDataGen is connected to s_axis_data_tdata_m2
+manual_tb.sv:349: error: reg s_axis_data_tdata_s1; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:349: error: Output port expression must support continuous assignment.
+manual_tb.sv:349:      : Port 12 (tdata_s1) of muxDataGen is connected to s_axis_data_tdata_s1
+manual_tb.sv:350: error: reg s_axis_data_tdata_s2; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:350: error: Output port expression must support continuous assignment.
+manual_tb.sv:350:      : Port 13 (tdata_s2) of muxDataGen is connected to s_axis_data_tdata_s2
+manual_tb.sv:350: error: reg s_axis_data_tdata_s3; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:350: error: Output port expression must support continuous assignment.
+manual_tb.sv:350:      : Port 14 (tdata_s3) of muxDataGen is connected to s_axis_data_tdata_s3
+manual_tb.sv:351: error: reg s_axis_data_tvalid_m1; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:351: error: Output port expression must support continuous assignment.
+manual_tb.sv:351:      : Port 15 (tvalid_m1) of muxDataGen is connected to s_axis_data_tvalid_m1
+manual_tb.sv:351: error: reg s_axis_data_tvalid_m2; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:351: error: Output port expression must support continuous assignment.
+manual_tb.sv:351:      : Port 16 (tvalid_m2) of muxDataGen is connected to s_axis_data_tvalid_m2
+manual_tb.sv:351: error: reg s_axis_data_tvalid_s1; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:351: error: Output port expression must support continuous assignment.
+manual_tb.sv:351:      : Port 17 (tvalid_s1) of muxDataGen is connected to s_axis_data_tvalid_s1
+manual_tb.sv:352: error: reg s_axis_data_tvalid_s2; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:352: error: Output port expression must support continuous assignment.
+manual_tb.sv:352:      : Port 18 (tvalid_s2) of muxDataGen is connected to s_axis_data_tvalid_s2
+manual_tb.sv:352: error: reg s_axis_data_tvalid_s3; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:352: error: Output port expression must support continuous assignment.
+manual_tb.sv:352:      : Port 19 (tvalid_s3) of muxDataGen is connected to s_axis_data_tvalid_s3
+manual_tb.sv:353: error: reg s_axis_data_tlast_m1; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:353: error: Output port expression must support continuous assignment.
+manual_tb.sv:353:      : Port 20 (tlast_m1) of muxDataGen is connected to s_axis_data_tlast_m1
+manual_tb.sv:353: error: reg s_axis_data_tlast_m2; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:353: error: Output port expression must support continuous assignment.
+manual_tb.sv:353:      : Port 21 (tlast_m2) of muxDataGen is connected to s_axis_data_tlast_m2
+manual_tb.sv:353: error: reg s_axis_data_tlast_s1; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:353: error: Output port expression must support continuous assignment.
+manual_tb.sv:353:      : Port 22 (tlast_s1) of muxDataGen is connected to s_axis_data_tlast_s1
+manual_tb.sv:354: error: reg s_axis_data_tlast_s2; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:354: error: Output port expression must support continuous assignment.
+manual_tb.sv:354:      : Port 23 (tlast_s2) of muxDataGen is connected to s_axis_data_tlast_s2
+manual_tb.sv:354: error: reg s_axis_data_tlast_s3; cannot be driven by primitives or continuous assignment.
+manual_tb.sv:354: error: Output port expression must support continuous assignment.
+manual_tb.sv:354:      : Port 24 (tlast_s3) of muxDataGen is connected to s_axis_data_tlast_s3
+manual_tb.sv:447: error: Concatenation operand "'sd1" has indefinite width.
+manual_tb.sv:447: error: Concatenation operand "'sd0" has indefinite width.
+manual_tb.sv:447: error: Concatenation operand "'sd0" has indefinite width.
+manual_tb.sv:447: error: Concatenation operand "'sd1" has indefinite width.
+Assertion failed: more == 0, file ../iverilog/net_assign.cc, line 71

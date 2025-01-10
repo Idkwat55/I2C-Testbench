@@ -229,6 +229,8 @@ I/O pin.  This would prevent devices from stretching the clock period.
     assign bus_active = bus_active_reg;
     assign bus_addressed = bus_addressed_reg;
 
+    wire scl_posedge, scl_negedge, sda_posedge, sda_negedge;
+
     assign scl_posedge = scl_i_reg && !last_scl_i_reg;
     assign scl_negedge = !scl_i_reg && last_scl_i_reg;
     assign sda_posedge = sda_i_reg && !last_sda_i_reg;

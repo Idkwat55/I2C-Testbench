@@ -1,0 +1,6 @@
+manual_tb.sv
+i2c_master.v
+i2c_slave.v
+stream_gen.v
+stream_read.v
+muxDataGen.v

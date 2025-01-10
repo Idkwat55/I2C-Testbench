@@ -45,7 +45,7 @@ module manual_tb;
   wire bus_active_m1;
   wire missed_ack_m1;
 
-  // Maaster 2 Inputs
+  // Master 2 Inputs
   reg [6:0] s_axis_cmd_address_m2 = 0;
   reg s_axis_cmd_start_m2 = 0;
   reg s_axis_cmd_read_m2 = 0;
@@ -304,31 +304,28 @@ module manual_tb;
     .device_address_mask(device_address_mask_s3)
   );
 
-  assign scl_i_m1 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
-  assign scl_i_m2 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
-  assign scl_i_s1 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
-  assign scl_i_s2 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
-  assign scl_i_s3 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+  wire scl_i_m1_w, scl_i_m2_w, scl_i_s1_w, scl_i_s2_w, scl_i_s3_w;
 
-  assign sda_i_m1 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
-  assign sda_i_m2 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
-  assign sda_i_s1 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
-  assign sda_i_s2 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
-  assign sda_i_s3 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
- 
+  assign scl_i_m1_w = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+  assign scl_i_m2_w = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+  assign scl_i_s1_w = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+  assign scl_i_s2_w = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+  assign scl_i_s3_w = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+
   reg [7:0] streamGen_Din =0 ;
   reg streamGen_push =0 , streamGen_op_en =0 ;
   reg streamGen_clk = 0, streamGen_rst = 0;
+  reg streamGen_en = 0;
   wire streamGen_tready , streamGen_tlast ,
   streamGen_empty , streamGen_full , streamGen_tvalid ;
- 
   wire  [3:0] streamGen_buff_count ;
   wire [7:0] streamGen_tdata;
+
   reg [2:0] sel_mux = 3'd1;
 
   stream_gen streamGen (
     .Din(streamGen_Din),
-    .push(streamGen_push), .clk(streamGen_clk), .rst(streamGen_rst), .op_en(streamGen_op_en ),
+    .push(streamGen_push), .clk(streamGen_clk), .rst(streamGen_rst), .op_en(streamGen_op_en ), .en(streamGen_en),
     .buff_count(streamGen_buff_count ),
     .tdata(streamGen_tdata ),
     .tvalid(streamGen_tvalid ),
@@ -353,8 +350,6 @@ module manual_tb;
     .tlast_s2(s_axis_data_tlast_s2),.tlast_s3(s_axis_data_tlast_s3),
     .tready(streamGen_tready)
   );
-
-  integer i;
 
   initial
   begin : clock_gen
@@ -398,14 +393,14 @@ module manual_tb;
 
   end
 
-
+  integer i;
   integer log_file;
   integer console;
 
   initial
   begin : main_initial
 
-    log_file = $fopen("TESTBENCH.log");
+    log_file = $fopen("TESTBENCH_LOG.log");
 
     // Combine files for broadcast
     console =   log_file | 32'b1;
@@ -433,28 +428,44 @@ module manual_tb;
     $fdisplay(console,"\t [%t]  Slave 1 assigned Address : 0b%b (%d) \n\t [%t]  Slave 2 assigned Address : 0b%b (%d) \n\t [%t]  Slave 3 assigned Address : 0b%b (%d) ",
       $realtime, device_address_s1, device_address_s1, $realtime, device_address_s2, device_address_s2, $realtime, device_address_s3, device_address_s3);
     #100;
-    prescale_m1 = 'd2; prescale_m2 = 'd2;
+    prescale_m1 = 'd2;
+    prescale_m2 = 'd2;
     $fdisplay(console,"\t [%t]  Prescale set to 0b%b (%d) ", $realtime, prescale_m1, prescale_m1); #100;
     $fdisplay(console,"\t [%t]  Stop_on_idle set to HIGH ", $realtime);
 
+    $fmonitor(console,"\t [Monitor] [stream_gen] : streamGen_Din = %b streamGen_push = %b , streamGen_op_en = %b streamGen_rst = %b streamGen_en = %b streamGen_tready = %b streamGen_tlast = %b streamGen_empty = %b streamGen_full = %b streamGen_tvalid = %b streamGen_buff_count = %b streamGen_tdata = %b",
+      streamGen_Din , streamGen_push , streamGen_op_en , streamGen_rst , streamGen_en , streamGen_tready , streamGen_tlast ,
+      streamGen_empty , streamGen_full , streamGen_tvalid , streamGen_buff_count , streamGen_tdata);
 
     // Write Multiple
     // Write to address 7'h22 , the data 0x11223344, from master 1
     // Load data to stream gen
-    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en} = {8'h11, 1, 0, 0}; #1;
-    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en} = {8'h22, 1, 0, 0}; #1;
+    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en, streamGen_en} = {8'h11, 1'b1, 1'b0, 1'b0, 1'b1};
+    #1;
+    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en, streamGen_en} = {8'h22, 1'b1, 1'b0, 1'b0, 1'b1};
+    #1;
+    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en, streamGen_en} = {8'h33, 1'b1, 1'b0, 1'b0, 1'b1};
+    #1;
+    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en, streamGen_en} = {8'h44, 1'b1, 1'b0, 1'b0, 1'b1};
+    #1;
+    {streamGen_push, streamGen_op_en, streamGen_en} = 3'b000;
+
+
     {s_axis_cmd_address_m1, s_axis_cmd_start_m1, s_axis_cmd_read_m1, s_axis_cmd_write_m1, s_axis_cmd_write_multiple_m1,
     s_axis_cmd_stop_m1} = {7'h22, 1'b0, 1'b0,  1'b0 ,    1'b1, 1'b1};
     //                      Addr, start, read, write, write_m, stop
-
-    #50 ; // Sync to Master 1 clock 
+    s_axis_data_tdata_m1 = 8'h00;
+    streamGen_op_en = 1'b1;
+    #100 ; // Sync to Master 1 - 2 clocks 
+    streamGen_op_en = 1'b1;
 
     // Annouce END & Close files
     $fdisplay(console, "\t\t  END OF TEST [ Simulation tIme : %t ns/ps ] \t", $realtime);
-    $display("\n\t\t  Log file is generated at pwd/TESTBENCH_LOG");
-    $fclose(log_file);
-    $dumpfile("manual_tb_vcd.lxt");
+    $fdisplay(console,"\n\t\t  Log file is generated at pwd/TESTBENCH_LOG.log");
+    $fdisplay(console,"VCD file is generated at pwd/TESTBENCH_dump.vcd");
+    $dumpfile("TESTBENCH_dump.vcd");
     $dumpvars;
+    $fclose(log_file);
   end
 
 endmodule

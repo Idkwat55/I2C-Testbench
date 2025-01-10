@@ -1,6 +1,7 @@
 .vscode/
 .settings/
 work/
+output/
 .project
 *.xml
 *.code-workspace
@@ -10,3 +11,7 @@ work/
 *.mti
 *.json
 *.vvp
+*.c
+*.exe
+*.pdb
+*.ilk
