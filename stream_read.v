@@ -1,3 +1,4 @@
+
 module stream_read (
     input wire clk, rst, // Clock and reset
     input wire [7:0] tdata, // Data from the source

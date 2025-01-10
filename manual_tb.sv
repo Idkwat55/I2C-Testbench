@@ -304,7 +304,6 @@ module manual_tb;
     .device_address_mask(device_address_mask_s3)
   );
 
-
   assign scl_o_m1 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
   assign scl_o_m2 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
   assign scl_o_s1 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
@@ -392,9 +391,9 @@ module manual_tb;
       end
   end
 
+
   integer log_file;
   integer console;
-
 
   initial
   begin : main_initial
@@ -402,10 +401,11 @@ module manual_tb;
 
 
 
-    log_file = $fopen("TESTBENCH_LOG");
+    log_file = $fopen("TESTBENCH.log");
 
     // Combine files for broadcast
-    console =   log_file| 32'b1;
+    console =   log_file | 32'b1;
+
 
     // Log final message to both files
     $fdisplay(console, "\t\t STARTED TESTBENCH [ Simulation Time : %t ns/ps ] \t", $realtime);
@@ -433,7 +433,6 @@ module manual_tb;
     prescale_m1 = 'd2; prescale_m2 = 'd2;
     $fdisplay(console,"\t [%t]  Prescale set to 0b%b (%d) ", $realtime, prescale_m1, prescale_m1); #100;
     $fdisplay(console,"\t [%t]  Stop_on_idle set to HIGH ", $realtime);
-
 
 
     // Annouce END & Close files
