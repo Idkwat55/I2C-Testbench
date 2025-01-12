@@ -1,56 +1,45 @@
 module stream_gen (
-    input wire [7:0] Din,
-    input wire push, clk, rst, op_en, en,
-    output reg [3:0] buff_count,
+    input wire [7:0] Din, // Data input
+    input wire push, clk, rst, op_en, // Control signals
+    output reg [3:0] buff_count, // Tracks the number of valid entries in the buffer
 
-    output reg [7:0] tdata,
-    output reg tvalid,
-    input wire tready,
-    output reg tlast,
+    output reg [7:0] tdata, // Data to be transmitted
+    output reg tvalid, // Data validity signal
+    input wire tready, // Ready signal from receiver
+    output reg tlast, // Indicates last piece of data
 
-    output reg empty, full
+    output reg empty, full // Buffer status
 );
 
-    reg [7:0] buffer [15:0];
-    reg [3:0] count; // Tracks the number of valid entries in the buffer
+    reg [7:0] buffer [15:0]; // Buffer to hold 16 8-bit data entries
+    reg [3:0] count; // Count of valid entries in the buffer
 
-    //reg push_reg, push_edge;
-
-    // Push edge detection
-/*    always @(posedge clk or posedge rst) begin
-        if (rst) begin
-            push_reg <= 0;
-            push_edge <= 0;
-        end else begin
-            push_edge <= push & ~push_reg; // Rising edge detection
-            push_reg <= push;
-        end
-    end*/
-
-    // Main logic
+    // Main process: handles data reading, writing, and buffer management
     always @(posedge clk or posedge rst) begin
         if (rst) begin
+            // Reset logic: clear all registers and buffer status
             tlast <= 0;
             tvalid <= 0;
             tdata <= 8'b0;
             count <= 0;
-
+            buff_count <= 0;
             full <= 0;
             empty <= 1;
         end else begin
-            // Buffer status
-            buff_count <= count;
-            full <= (count == 15);
-            empty <= (count == 0);
+            // Update buffer count and status signals
+            buff_count = count;
+            full <= (count == 15); // Full when count reaches 15
+            empty <= (count == 0); // Empty when count is 0
 
             if (op_en && tready) begin
-                // Output mode
-                if ( count > 0) begin
-                    tdata <= buffer[count - 1]; // Read next data
-                    tvalid <= 1;
-                    count <= count - 1;
+                // Output mode: read data from buffer and send to output
+                if (count > 0) begin
+                    tdata <= buffer[count - 1]; // Read next data from the buffer
+                    tvalid <= 1; // Data is valid
+                    buff_count = count;
+                    count <= count - 1; // Decrement the count
 
-                    // Set tlast for the final word
+                    // If this is the last valid data, set tlast
                     if (count == 1) begin
                         tlast <= 1;
                     end else begin
@@ -58,23 +47,20 @@ module stream_gen (
                     end
                 end
 
-                // Maintain stable output for 1000 cycles
-                if (tvalid) begin
-
-                    if (count == 0) begin
-                        tvalid <= 0; // No more valid data
-                    end
-
+                // Disable tvalid when no data is left to send
+                if (tvalid && count == 0) begin
+                    tvalid <= 0;
+                    tlast <= 0; // Clear tlast as no more data will be sent
                 end
             end else begin
-                // Write mode
-                tvalid <= 0;
-                tlast <= 0;
+                // Write mode: write data into the buffer when 'push' is high and buffer is not full
+                tvalid <= 0; // Disable tvalid during write mode
+                tlast <= 0; // Reset tlast during write mode
 
-
-                if (en && !full) begin
-                    buffer[count] <= Din; // Write new data
-                    count <= count + 1;
+                if (push && !full) begin
+                    buffer[count] <= Din; // Write data into the buffer
+                    count <= count + 1; // Increment the buffer count
+                    buff_count = count;
                 end
             end
         end
