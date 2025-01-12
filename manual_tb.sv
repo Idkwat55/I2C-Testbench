@@ -539,8 +539,8 @@ module manual_tb;
 
     // Annouce END & Close files
     $fdisplay(console, "\t\t  END OF TEST [ Simulation tIme : %t ns/ps ] \t", $realtime);
-    $fdisplay(console,"\n\t\t  Log file is generated at pwd/TESTBENCH_LOG.log");
-    $fdisplay(console,"VCD file is generated at pwd/TESTBENCH_dump.vcd");
+    $fdisplay(console, "\n\t\t  Log file is generated at pwd/TESTBENCH_LOG.log");
+    $fdisplay(console, "\t\t  VCD file is generated at pwd/TESTBENCH_dump.vcd \n");
     $dumpfile("TESTBENCH_dump.vcd");
     $dumpvars;
     $fclose(log_file);
