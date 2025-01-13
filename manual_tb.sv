@@ -304,51 +304,58 @@ module manual_tb;
     .device_address_mask(device_address_mask_s3)
   );
 
-  // Declare shared bus lines
-  wire scl_pin; // Shared clock line
-  wire sda_pin; // Shared data line
+  //  // Declare shared bus lines
+  //  wire scl_pin; // Shared clock line
+  //  wire sda_pin; // Shared data line
 
-  // Intermediate wires for inputs
-  wire scl_i_wire_m1, scl_i_wire_m2, scl_i_wire_s1, scl_i_wire_s2, scl_i_wire_s3;
-  wire sda_i_wire_m1, sda_i_wire_m2, sda_i_wire_s1, sda_i_wire_s2, sda_i_wire_s3;
+  //  // Intermediate wires for inputs
+  //  wire scl_i_wire_m1, scl_i_wire_m2, scl_i_wire_s1, scl_i_wire_s2, scl_i_wire_s3;
+  //  wire sda_i_wire_m1, sda_i_wire_m2, sda_i_wire_s1, sda_i_wire_s2, sda_i_wire_s3;
 
-  // Clock Line (SCL)
-  assign scl_pin = (scl_t_m1 & scl_t_m2 & scl_t_s1 & scl_t_s2 & scl_t_s3) ? 1'bz :
-  (scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3) ? 1'bz :
-  1'b0;
+  //  // Clock Line (SCL)
+  //  assign scl_pin =  (scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3) ? 1'bz : 1'b0;
 
-  assign scl_i_wire_m1 = scl_pin;
-  assign scl_i_wire_m2 = scl_pin;
-  assign scl_i_wire_s1 = scl_pin;
-  assign scl_i_wire_s2 = scl_pin;
-  assign scl_i_wire_s3 = scl_pin;
+  //  assign scl_i_wire_m1 = scl_pin;
+  //  assign scl_i_wire_m2 = scl_pin;
+  //  assign scl_i_wire_s1 = scl_pin;
+  //  assign scl_i_wire_s2 = scl_pin;
+  //  assign scl_i_wire_s3 = scl_pin;
 
-  // Data Line (SDA)
-  assign sda_pin = (sda_t_m1 & sda_t_m2 & sda_t_s1 & sda_t_s2 & sda_t_s3) ? 1'bz :
-  (sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3) ? 1'bz :
-  1'b0;
+  //  // Data Line (SDA)
+  //  assign sda_pin =  (sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3) ? 1'bz : 1'b0;
 
-  assign sda_i_wire_m1 = sda_pin;
-  assign sda_i_wire_m2 = sda_pin;
-  assign sda_i_wire_s1 = sda_pin;
-  assign sda_i_wire_s2 = sda_pin;
-  assign sda_i_wire_s3 = sda_pin;
+  //  assign sda_i_wire_m1 = sda_pin;
+  //  assign sda_i_wire_m2 = sda_pin;
+  //  assign sda_i_wire_s1 = sda_pin;
+  //  assign sda_i_wire_s2 = sda_pin;
+  //  assign sda_i_wire_s3 = sda_pin;
 
-  // Assign intermediate wires to reg variables
-  always @(*) begin
-    scl_i_m1 = scl_i_wire_m1;
-    scl_i_m2 = scl_i_wire_m2;
-    scl_i_s1 = scl_i_wire_s1;
-    scl_i_s2 = scl_i_wire_s2;
-    scl_i_s3 = scl_i_wire_s3;
+  //  // Assign intermediate wires to reg variables
+  //  always @(*) begin : assign_intermediate_wires_for_sda_and_scl
+  //    scl_i_m1 = scl_i_wire_m1;
+  //    scl_i_m2 = scl_i_wire_m2;
+  //    scl_i_s1 = scl_i_wire_s1;
+  //    scl_i_s2 = scl_i_wire_s2;
+  //    scl_i_s3 = scl_i_wire_s3;
 
-    sda_i_m1 = sda_i_wire_m1;
-    sda_i_m2 = sda_i_wire_m2;
-    sda_i_s1 = sda_i_wire_s1;
-    sda_i_s2 = sda_i_wire_s2;
-    sda_i_s3 = sda_i_wire_s3;
-  end
+  //    sda_i_m1 = sda_i_wire_m1;
+  //    sda_i_m2 = sda_i_wire_m2;
+  //    sda_i_s1 = sda_i_wire_s1;
+  //    sda_i_s2 = sda_i_wire_s2;
+  //    sda_i_s3 = sda_i_wire_s3;
+  //  end
 
+  assign scl_o_m1 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
+  assign scl_o_m2 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
+  assign scl_o_s1 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
+  assign scl_o_s2 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
+  assign scl_o_s3 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
+
+  assign sda_o_m1 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
+  assign sda_o_m2 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
+  assign sda_o_s1 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
+  assign sda_o_s2 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
+  assign sda_o_s3 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
 
   reg [7:0] streamGen_Din =0 ;
   reg streamGen_push =0 , streamGen_op_en =0 ;
@@ -381,6 +388,19 @@ module manual_tb;
     .full(streamGen_full)
   );
 
+  // Intermediate wire for muxDatagen_init
+
+  wire [7:0] s_axis_data_tdata_m1_w, s_axis_data_tdata_m2_w, s_axis_data_tdata_s1_w, s_axis_data_tdata_s2_w, s_axis_data_tdata_s3_w;
+  wire s_axis_data_tvalid_m1_w, s_axis_data_tvalid_m2_w, s_axis_data_tvalid_s1_w, s_axis_data_tvalid_s2_w, s_axis_data_tvalid_s3_w;
+  wire s_axis_data_tlast_m1_w, s_axis_data_tlast_m2_w, s_axis_data_tlast_s1_w, s_axis_data_tlast_s2_w, s_axis_data_tlast_s3_w;
+
+
+  assign s_axis_data_tdata_m1_w = s_axis_data_tdata_m1;
+  assign s_axis_data_tdata_m2_w = s_axis_data_tdata_m2;
+  assign s_axis_data_tdata_s1_w = s_axis_data_tdata_s1;
+  assign s_axis_data_tdata_s2_w = s_axis_data_tdata_s2;
+  assign s_axis_data_tdata_s3_w = s_axis_data_tdata_s3;
+
   muxDataGen muxDatagen_init (
     .sel(sel_mux),
     .tdata(streamGen_tdata),
@@ -388,12 +408,12 @@ module manual_tb;
     .tlast(streamGen_tlast),
     .tready_m1(s_axis_data_tready_m1), .tready_m2(s_axis_data_tready_m2), .tready_s1(s_axis_data_tready_s1),
     .tready_s2(s_axis_data_tready_s2), .tready_s3(s_axis_data_tready_s3),
-    .tdata_m1(s_axis_data_tdata_m1), .tdata_m2(s_axis_data_tdata_m2), .tdata_s1(s_axis_data_tdata_s1),
-    .tdata_s2(s_axis_data_tdata_s2), .tdata_s3(s_axis_data_tdata_s3),
-    .tvalid_m1(s_axis_data_tvalid_m1), .tvalid_m2(s_axis_data_tvalid_m2), .tvalid_s1(s_axis_data_tvalid_s1),
-    .tvalid_s2(s_axis_data_tvalid_s2), .tvalid_s3(s_axis_data_tvalid_s3),
-    .tlast_m1(s_axis_data_tlast_m1), .tlast_m2(s_axis_data_tlast_m2), .tlast_s1(s_axis_data_tlast_s1),
-    .tlast_s2(s_axis_data_tlast_s2),.tlast_s3(s_axis_data_tlast_s3),
+    .tdata_m1(s_axis_data_tdata_m1_w), .tdata_m2(s_axis_data_tdata_m2_w), .tdata_s1(s_axis_data_tdata_s1_w),
+    .tdata_s2(s_axis_data_tdata_s2_w), .tdata_s3(s_axis_data_tdata_s3_w),
+    .tvalid_m1(s_axis_data_tvalid_m1_w), .tvalid_m2(s_axis_data_tvalid_m2_w), .tvalid_s1(s_axis_data_tvalid_s1_w),
+    .tvalid_s2(s_axis_data_tvalid_s2_w), .tvalid_s3(s_axis_data_tvalid_s3_w),
+    .tlast_m1(s_axis_data_tlast_m1_w), .tlast_m2(s_axis_data_tlast_m2_w), .tlast_s1(s_axis_data_tlast_s1_w),
+    .tlast_s2(s_axis_data_tlast_s2_w), .tlast_s3(s_axis_data_tlast_s3_w),
     .tready(streamGen_tready)
   );
 
@@ -454,7 +474,7 @@ module manual_tb;
   integer log_file;
   integer console;
 
-  assign {sda_pin, scl_pin} = 2'b11;
+  // assign {sda_pin, scl_pin} = 2'b11;
 
 
   initial
@@ -462,10 +482,10 @@ module manual_tb;
 
     log_file = $fopen("TESTBENCH_LOG.log");
 
-    // Combine files for broadcast
+    // broadcast ( log + console
     console =   log_file | 32'b1;
 
-    // Log final message to both files
+
     $fdisplay(console, "\t\t STARTED TESTBENCH [ Simulation Time : %t ns/ps ] \t", $realtime);
 
     {rst_m1,rst_m2,rst_s1,rst_s2,rst_s3,streamGen_rst} = 6'b111111 ;
@@ -500,14 +520,16 @@ module manual_tb;
     $fdisplay(console,"\t [%t]  Prescale set to 0b%b (%d) ", $realtime, prescale_m1, prescale_m1); #100;
     $fdisplay(console,"\t [%t]  Stop_on_idle set to HIGH ", $realtime);
 
-    $fmonitor(console,"\t [Monitor] [stream_gen] : streamGen_Din = %b streamGen_push = %b , streamGen_op_en = %b, streamGen_rst = %b, \n\t                    ----  streamGen_tready = %b, streamGen_tlast = %b, streamGen_empty = %b, \n\t                    ----  streamGen_full = %b, streamGen_tvalid = %b, streamGen_buff_count = %b, streamGen_tdata = %b",
+    $fmonitor(console,"\t [Monitor] [stream_gen] : streamGen_Din = %b streamGen_push = %b , streamGen_op_en = %b, streamGen_rst = %b, \n\t                    ----  streamGen_tready = %b, streamGen_tlast = %b, streamGen_empty = %b, \n\t                    ----  streamGen_full = %b, streamGen_tvalid = %b, streamGen_buff_count = %b, streamGen_tdata = %b \n\t [%t]\n",
       streamGen_Din , streamGen_push , streamGen_op_en , streamGen_rst , streamGen_tready , streamGen_tlast ,
-      streamGen_empty , streamGen_full , streamGen_tvalid , streamGen_buff_count , streamGen_tdata);
+      streamGen_empty , streamGen_full , streamGen_tvalid , streamGen_buff_count , streamGen_tdata, $realtime);
 
     // Write Multiple
     // Write to address 7'h22 , the data 0x11223344, from master 1
     // Load data to stream gen
-    streamGen_rst = 1'b1; #4;
+    streamGen_rst = 1'b1;
+    #4;
+    streamGen_sel = 3'b000;
     {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h11, 1'b1, 1'b0, 1'b0 };
     #2;
     //    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h11, 1'b0, 1'b0, 1'b0 };
@@ -534,11 +556,13 @@ module manual_tb;
     s_axis_data_tdata_m1 = 8'h00;
     // Start pushing data
     streamGen_op_en = 1'b1;
-    streamGen_sel = 3'b000;
+    s_axis_cmd_valid_m1 = 1'b1;
     #100 ; // Sync to Master 1 - 2 clocks 
+    s_axis_cmd_valid_m1 = 1'b0;
+    #100_00;
 
     // Annouce END & Close files
-    $fdisplay(console, "\t\t  END OF TEST [ Simulation tIme : %t ns/ps ] \t", $realtime);
+    $fdisplay(console, "\n\t\t  END OF TEST [ Simulation tIme : %t ns/ps ] \t", $realtime);
     $fdisplay(console, "\n\t\t  Log file is generated at pwd/TESTBENCH_LOG.log");
     $fdisplay(console, "\t\t  VCD file is generated at pwd/TESTBENCH_dump.vcd \n");
     $dumpfile("TESTBENCH_dump.vcd");
