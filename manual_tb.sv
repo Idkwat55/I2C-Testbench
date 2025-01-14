@@ -304,7 +304,6 @@ module manual_tb;
     .device_address_mask(device_address_mask_s3)
   );
 
-
   always @(*) begin
     scl_i_m1 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
     scl_i_m2 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
@@ -318,7 +317,6 @@ module manual_tb;
     sda_i_s2 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
     sda_i_s3 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
   end
-
 
   reg [7:0] streamGen_Din = 0 ;
   reg streamGen_push = 0 , streamGen_op_en = 0 ;
@@ -363,6 +361,7 @@ module manual_tb;
   wire s_axis_data_tvalid_m1_w, s_axis_data_tvalid_m2_w, s_axis_data_tvalid_s1_w, s_axis_data_tvalid_s2_w, s_axis_data_tvalid_s3_w;
   wire s_axis_data_tlast_m1_w, s_axis_data_tlast_m2_w, s_axis_data_tlast_s1_w, s_axis_data_tlast_s2_w, s_axis_data_tlast_s3_w;
 
+ 
   always @(*) begin
     s_axis_data_tdata_m1 = s_axis_data_tdata_m1_w;
     s_axis_data_tdata_m2 = s_axis_data_tdata_m2_w;
@@ -517,8 +516,9 @@ module manual_tb;
     streamGen_rst = 1'b1;
     #4;
     streamGen_sel = 3'b000;
+ 
     sel_mux = 3'd001;
-
+ 
     {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h11, 1'b1, 1'b0, 1'b0 };
     #2;
 
