@@ -304,80 +304,49 @@ module manual_tb;
     .device_address_mask(device_address_mask_s3)
   );
 
-  //  // Declare shared bus lines
-  //  wire scl_pin; // Shared clock line
-  //  wire sda_pin; // Shared data line
 
-  //  // Intermediate wires for inputs
-  //  wire scl_i_wire_m1, scl_i_wire_m2, scl_i_wire_s1, scl_i_wire_s2, scl_i_wire_s3;
-  //  wire sda_i_wire_m1, sda_i_wire_m2, sda_i_wire_s1, sda_i_wire_s2, sda_i_wire_s3;
+  always @(*) begin
+    scl_i_m1 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+    scl_i_m2 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+    scl_i_s1 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+    scl_i_s2 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
+    scl_i_s3 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
 
-  //  // Clock Line (SCL)
-  //  assign scl_pin =  (scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3) ? 1'bz : 1'b0;
+    sda_i_m1 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+    sda_i_m2 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+    sda_i_s1 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+    sda_i_s2 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+    sda_i_s3 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
+  end
 
-  //  assign scl_i_wire_m1 = scl_pin;
-  //  assign scl_i_wire_m2 = scl_pin;
-  //  assign scl_i_wire_s1 = scl_pin;
-  //  assign scl_i_wire_s2 = scl_pin;
-  //  assign scl_i_wire_s3 = scl_pin;
 
-  //  // Data Line (SDA)
-  //  assign sda_pin =  (sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3) ? 1'bz : 1'b0;
-
-  //  assign sda_i_wire_m1 = sda_pin;
-  //  assign sda_i_wire_m2 = sda_pin;
-  //  assign sda_i_wire_s1 = sda_pin;
-  //  assign sda_i_wire_s2 = sda_pin;
-  //  assign sda_i_wire_s3 = sda_pin;
-
-  //  // Assign intermediate wires to reg variables
-  //  always @(*) begin : assign_intermediate_wires_for_sda_and_scl
-  //    scl_i_m1 = scl_i_wire_m1;
-  //    scl_i_m2 = scl_i_wire_m2;
-  //    scl_i_s1 = scl_i_wire_s1;
-  //    scl_i_s2 = scl_i_wire_s2;
-  //    scl_i_s3 = scl_i_wire_s3;
-
-  //    sda_i_m1 = sda_i_wire_m1;
-  //    sda_i_m2 = sda_i_wire_m2;
-  //    sda_i_s1 = sda_i_wire_s1;
-  //    sda_i_s2 = sda_i_wire_s2;
-  //    sda_i_s3 = sda_i_wire_s3;
-  //  end
-
-  assign scl_o_m1 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
-  assign scl_o_m2 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
-  assign scl_o_s1 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
-  assign scl_o_s2 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
-  assign scl_o_s3 = scl_i_m1 & scl_i_m2 & scl_i_s1 & scl_i_s2 & scl_i_s3;
-
-  assign sda_o_m1 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
-  assign sda_o_m2 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
-  assign sda_o_s1 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
-  assign sda_o_s2 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
-  assign sda_o_s3 = sda_i_m1 & sda_i_m2 & sda_i_s1 & sda_i_s2 & sda_i_s3;
-
-  reg [7:0] streamGen_Din =0 ;
-  reg streamGen_push =0 , streamGen_op_en =0 ;
+  reg [7:0] streamGen_Din = 0 ;
+  reg streamGen_push = 0 , streamGen_op_en = 0 ;
   reg streamGen_clk = 0, streamGen_rst = 0;
 
-  wire streamGen_tready , streamGen_tlast ,
-  streamGen_empty , streamGen_full , streamGen_tvalid ;
-  wire  [3:0] streamGen_buff_count ;
-  wire [7:0] streamGen_tdata;
+  wire streamGen_tready = 0, streamGen_tlast = 0 ,
+  streamGen_empty = 0, streamGen_full = 0, streamGen_tvalid = 0;
+  wire  [3:0] streamGen_buff_count = 0;
+  wire [7:0] streamGen_tdata =0;
   reg [2:0] streamGen_sel = 3'b000;
-  reg [2:0] sel_mux = 3'd000;
+  reg [2:0] sel_mux = 3'd001;
+  reg streamGen_clk_sel = 0;
+
+  always @(*) begin
+    case (streamGen_sel)
+      3'b000: streamGen_clk_sel = streamGen_clk;
+      3'b001: streamGen_clk_sel = clk_m1;
+      3'b010: streamGen_clk_sel = clk_m2;
+      3'b011: streamGen_clk_sel = clk_s1;
+      3'b100: streamGen_clk_sel = clk_s2;
+      3'b101: streamGen_clk_sel = clk_s3;
+      default: streamGen_clk_sel = 1'b0; // Default case for invalid selection
+    endcase
+  end
 
   stream_gen streamGen (
     .Din(streamGen_Din),
-    .push(streamGen_push), .clk(
-    (streamGen_sel == 3'b000) ? streamGen_clk :
-    (streamGen_sel == 3'b001) ? clk_m1 :
-    (streamGen_sel == 3'b010) ? clk_m2 :
-    (streamGen_sel == 3'b011) ? clk_s1 :
-    (streamGen_sel == 3'b100) ? clk_s2 :
-    (streamGen_sel == 3'b101) ? clk_s3 : 1'b0 // Default case for invalid selection
-    ),
+    .push(streamGen_push), .clk(streamGen_clk_sel),
     .rst(streamGen_rst), .op_en(streamGen_op_en ),
     .buff_count(streamGen_buff_count ),
     .tdata(streamGen_tdata ),
@@ -394,20 +363,38 @@ module manual_tb;
   wire s_axis_data_tvalid_m1_w, s_axis_data_tvalid_m2_w, s_axis_data_tvalid_s1_w, s_axis_data_tvalid_s2_w, s_axis_data_tvalid_s3_w;
   wire s_axis_data_tlast_m1_w, s_axis_data_tlast_m2_w, s_axis_data_tlast_s1_w, s_axis_data_tlast_s2_w, s_axis_data_tlast_s3_w;
 
+  always @(*) begin
+    s_axis_data_tdata_m1 = s_axis_data_tdata_m1_w;
+    s_axis_data_tdata_m2 = s_axis_data_tdata_m2_w;
+    s_axis_data_tdata_s1 = s_axis_data_tdata_s1_w;
+    s_axis_data_tdata_s2 = s_axis_data_tdata_s2_w;
+    s_axis_data_tdata_s3 = s_axis_data_tdata_s3_w;
+  end
 
-  assign s_axis_data_tdata_m1_w = s_axis_data_tdata_m1;
-  assign s_axis_data_tdata_m2_w = s_axis_data_tdata_m2;
-  assign s_axis_data_tdata_s1_w = s_axis_data_tdata_s1;
-  assign s_axis_data_tdata_s2_w = s_axis_data_tdata_s2;
-  assign s_axis_data_tdata_s3_w = s_axis_data_tdata_s3;
+
+  reg [7:0] streamGen_tdata_reg = 0;
+  reg streamGen_tlast_reg = 0, streamGen_tvalid_reg = 0;
+  reg s_axis_data_tready_m1_reg = 0, s_axis_data_tready_m2_reg = 0, s_axis_data_tready_s1_reg = 0, s_axis_data_tready_s2_reg = 0, s_axis_data_tready_s3_reg = 0;
+  always @(*) begin
+    streamGen_tdata_reg = streamGen_tdata;
+    streamGen_tlast_reg = streamGen_tlast;
+    streamGen_tvalid_reg = streamGen_tvalid;
+    s_axis_data_tready_m1_reg = s_axis_data_tready_m1;
+    s_axis_data_tready_m2_reg = s_axis_data_tready_m2;
+    s_axis_data_tready_s1_reg = s_axis_data_tready_s1;
+    s_axis_data_tready_s2_reg = s_axis_data_tready_s2;
+    s_axis_data_tready_s3_reg = s_axis_data_tready_s3;
+  end
+
+
 
   muxDataGen muxDatagen_init (
     .sel(sel_mux),
-    .tdata(streamGen_tdata),
-    .tvalid(streamGen_tvalid),
-    .tlast(streamGen_tlast),
-    .tready_m1(s_axis_data_tready_m1), .tready_m2(s_axis_data_tready_m2), .tready_s1(s_axis_data_tready_s1),
-    .tready_s2(s_axis_data_tready_s2), .tready_s3(s_axis_data_tready_s3),
+    .tdata(streamGen_tdata_reg),
+    .tvalid(streamGen_tvalid_reg),
+    .tlast(streamGen_tlast_reg),
+    .tready_m1(s_axis_data_tready_m1_reg), .tready_m2(s_axis_data_tready_m2_reg), .tready_s1(s_axis_data_tready_s1_reg),
+    .tready_s2(s_axis_data_tready_s2_reg), .tready_s3(s_axis_data_tready_s3_reg),
     .tdata_m1(s_axis_data_tdata_m1_w), .tdata_m2(s_axis_data_tdata_m2_w), .tdata_s1(s_axis_data_tdata_s1_w),
     .tdata_s2(s_axis_data_tdata_s2_w), .tdata_s3(s_axis_data_tdata_s3_w),
     .tvalid_m1(s_axis_data_tvalid_m1_w), .tvalid_m2(s_axis_data_tvalid_m2_w), .tvalid_s1(s_axis_data_tvalid_s1_w),
@@ -530,25 +517,24 @@ module manual_tb;
     streamGen_rst = 1'b1;
     #4;
     streamGen_sel = 3'b000;
+    sel_mux = 3'd001;
+
     {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h11, 1'b1, 1'b0, 1'b0 };
     #2;
-    //    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h11, 1'b0, 1'b0, 1'b0 };
-    //    #4;
+
     {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h22, 1'b1, 1'b0, 1'b0 };
     #2;
-    //    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h22, 1'b0, 1'b0, 1'b0 };
-    //    #4;
+
     {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h33, 1'b1, 1'b0, 1'b0 };
     #2;
-    //    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h33, 1'b0, 1'b0, 1'b0 };
-    //    #4;
+
     {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h44, 1'b1, 1'b0, 1'b0 };
     #2;
-    //    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h44, 1'b0, 1'b0, 1'b0 };
-    //    #4;
+
     {streamGen_push, streamGen_op_en } = 3'b00;
     #2;
-
+    streamGen_sel = 3'b001;
+    #2;
 
     {s_axis_cmd_address_m1, s_axis_cmd_start_m1, s_axis_cmd_read_m1, s_axis_cmd_write_m1, s_axis_cmd_write_multiple_m1,
     s_axis_cmd_stop_m1} = {7'h22, 1'b0, 1'b0,  1'b0 ,    1'b1, 1'b1};
