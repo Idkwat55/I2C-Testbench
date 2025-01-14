@@ -4,7 +4,7 @@ module muxDataGen (
   input wire tvalid,
   input wire tlast,
   input wire tready_m1, tready_m2, tready_s1, tready_s2, tready_s3,
-  
+
   output reg [7:0] tdata_m1, tdata_m2, tdata_s1, tdata_s2, tdata_s3,
   output reg tvalid_m1, tvalid_m2, tvalid_s1, tvalid_s2, tvalid_s3,
   output reg tlast_m1, tlast_m2, tlast_s1, tlast_s2, tlast_s3,

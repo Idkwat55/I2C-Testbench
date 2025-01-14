@@ -22,7 +22,7 @@ module manual_tb;
   reg s_axis_cmd_stop_m1 = 0;
   reg s_axis_cmd_valid_m1 = 0;
   reg [7:0] s_axis_data_tdata_m1 = 0;
-  reg s_axis_data_tvalid_m1 = 0;
+  reg s_axis_data_tvalid_m1 ;
   reg s_axis_data_tlast_m1 = 0;
   reg m_axis_data_tready_m1 = 0;
   reg scl_i_m1 = 1;
@@ -304,7 +304,7 @@ module manual_tb;
     .device_address_mask(device_address_mask_s3)
   );
 
-  always @(*) begin
+  always @(*) begin // for scl and sda bus / line
     scl_i_m1 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
     scl_i_m2 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
     scl_i_s1 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
@@ -318,19 +318,23 @@ module manual_tb;
     sda_i_s3 = sda_o_m1 & sda_o_m2 & sda_o_s1 & sda_o_s2 & sda_o_s3;
   end
 
+  // for streamGen
+
   reg [7:0] streamGen_Din = 0 ;
   reg streamGen_push = 0 , streamGen_op_en = 0 ;
   reg streamGen_clk = 0, streamGen_rst = 0;
 
-  wire streamGen_tready = 0, streamGen_tlast = 0 ,
-  streamGen_empty = 0, streamGen_full = 0, streamGen_tvalid = 0;
-  wire  [3:0] streamGen_buff_count = 0;
-  wire [7:0] streamGen_tdata =0;
+  wire streamGen_tready , streamGen_tlast ,
+  streamGen_empty , streamGen_full , streamGen_tvalid ;
+  wire  [3:0] streamGen_buff_count;
+  wire [7:0] streamGen_tdata ;
   reg [2:0] streamGen_sel = 3'b000;
   reg [2:0] sel_mux = 3'd001;
   reg streamGen_clk_sel = 0;
+  reg streamGen_tready_reg = 0;
 
-  always @(*) begin
+  always @(*) begin // for streamGen
+    streamGen_tready_reg = streamGen_tready;
     case (streamGen_sel)
       3'b000: streamGen_clk_sel = streamGen_clk;
       3'b001: streamGen_clk_sel = clk_m1;
@@ -346,35 +350,45 @@ module manual_tb;
     .Din(streamGen_Din),
     .push(streamGen_push), .clk(streamGen_clk_sel),
     .rst(streamGen_rst), .op_en(streamGen_op_en ),
-    .buff_count(streamGen_buff_count ),
+    .buff_count(streamGen_buff_count),
     .tdata(streamGen_tdata ),
     .tvalid(streamGen_tvalid ),
-    .tready(streamGen_tready ),
+    .tready(streamGen_tready_reg ),
     .tlast(streamGen_tlast ),
     .empty(streamGen_empty ),
     .full(streamGen_full)
   );
 
   // Intermediate wire for muxDatagen_init
-
   wire [7:0] s_axis_data_tdata_m1_w, s_axis_data_tdata_m2_w, s_axis_data_tdata_s1_w, s_axis_data_tdata_s2_w, s_axis_data_tdata_s3_w;
   wire s_axis_data_tvalid_m1_w, s_axis_data_tvalid_m2_w, s_axis_data_tvalid_s1_w, s_axis_data_tvalid_s2_w, s_axis_data_tvalid_s3_w;
   wire s_axis_data_tlast_m1_w, s_axis_data_tlast_m2_w, s_axis_data_tlast_s1_w, s_axis_data_tlast_s2_w, s_axis_data_tlast_s3_w;
 
- 
-  always @(*) begin
+
+  always @(*) begin // for muxDatagen_init
     s_axis_data_tdata_m1 = s_axis_data_tdata_m1_w;
     s_axis_data_tdata_m2 = s_axis_data_tdata_m2_w;
     s_axis_data_tdata_s1 = s_axis_data_tdata_s1_w;
     s_axis_data_tdata_s2 = s_axis_data_tdata_s2_w;
     s_axis_data_tdata_s3 = s_axis_data_tdata_s3_w;
+    s_axis_data_tvalid_m1 = s_axis_data_tvalid_m1_w;
+    s_axis_data_tvalid_m2 = s_axis_data_tvalid_m2_w;
+    s_axis_data_tvalid_s1 = s_axis_data_tvalid_s1_w;
+    s_axis_data_tvalid_s2 = s_axis_data_tvalid_s2_w;
+    s_axis_data_tvalid_s3 = s_axis_data_tvalid_s3_w;
+    s_axis_data_tlast_m1 = s_axis_data_tlast_m1_w;
+    s_axis_data_tlast_m2 = s_axis_data_tlast_m2_w;
+    s_axis_data_tlast_s1 = s_axis_data_tlast_s1_w;
+    s_axis_data_tlast_s2 = s_axis_data_tlast_s2_w;
+    s_axis_data_tlast_s3 = s_axis_data_tlast_s3_w;
   end
 
-
+  // Intermediate reg for muxDatagen_init
   reg [7:0] streamGen_tdata_reg = 0;
   reg streamGen_tlast_reg = 0, streamGen_tvalid_reg = 0;
   reg s_axis_data_tready_m1_reg = 0, s_axis_data_tready_m2_reg = 0, s_axis_data_tready_s1_reg = 0, s_axis_data_tready_s2_reg = 0, s_axis_data_tready_s3_reg = 0;
-  always @(*) begin
+
+  always @(*) begin // for muxDatagen_init
     streamGen_tdata_reg = streamGen_tdata;
     streamGen_tlast_reg = streamGen_tlast;
     streamGen_tvalid_reg = streamGen_tvalid;
@@ -456,7 +470,7 @@ module manual_tb;
     end
   end
 
-  integer i;
+
   integer log_file;
   integer console;
 
@@ -516,9 +530,9 @@ module manual_tb;
     streamGen_rst = 1'b1;
     #4;
     streamGen_sel = 3'b000;
- 
+
     sel_mux = 3'd001;
- 
+
     {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h11, 1'b1, 1'b0, 1'b0 };
     #2;
 

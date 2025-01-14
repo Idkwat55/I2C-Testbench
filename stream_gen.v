@@ -1,13 +1,12 @@
 module stream_gen (
     input wire [7:0] Din, // Data input
     input wire push, clk, rst, op_en, // Control signals
-    output reg [3:0] buff_count, // Tracks the number of valid entries in the buffer
+    input wire tready, // Ready signal from receiver
 
+    output reg [3:0] buff_count, // Tracks the number of valid entries in the buffer
     output reg [7:0] tdata, // Data to be transmitted
     output reg tvalid, // Data validity signal
-    input wire tready, // Ready signal from receiver
     output reg tlast, // Indicates last piece of data
-
     output reg empty, full // Buffer status
 );
 
