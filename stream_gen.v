@@ -12,7 +12,7 @@ module stream_gen (
 );
 
     reg [7:0] buffer [15:0]; // Buffer to hold 16 8-bit data entries
-    reg [3:0] count; // Count of valid entries in the buffer
+    reg [3:0] count, rptr, wptr; // Count of valid entries in the buffer
 
     // Main process: handles data reading, writing, and buffer management
     always @(posedge clk or posedge rst) begin
@@ -25,18 +25,27 @@ module stream_gen (
             buff_count <= 0;
             full <= 0;
             empty <= 1;
+            rptr <= 0;
+            wptr <= 0;
         end else begin
             // Update buffer count and status signals
             buff_count = count;
             full <= (count == 15); // Full when count reaches 15
             empty <= (count == 0); // Empty when count is 0
 
+            if (rptr >= wptr) begin
+
+                rptr <= 0;
+                wptr <= 0;
+            end
+
             if (op_en && tready) begin
                 // Output mode: read data from buffer and send to output
                 if (count > 0) begin
-                    tdata <= buffer[count - 1]; // Read next data from the buffer
+                    tdata <= buffer[rptr]; // Read next data from the buffer
                     tvalid <= 1; // Data is valid
-                    buff_count = count;
+                    buff_count <= wptr - rptr ;
+                    rptr <= rptr + 1; // Increment the read pointer
                     count <= count - 1; // Decrement the count
 
                     // If this is the last valid data, set tlast
@@ -52,7 +61,7 @@ module stream_gen (
                     tvalid <= 0;
                     tlast <= 0; // Clear tlast as no more data will be sent
                 end
-            end else begin
+            end else if (!op_en) begin
                 // Write mode: write data into the buffer when 'push' is high and buffer is not full
                 tvalid <= 0; // Disable tvalid during write mode
                 tlast <= 0; // Reset tlast during write mode
@@ -60,7 +69,8 @@ module stream_gen (
                 if (push && !full) begin
                     buffer[count] <= Din; // Write data into the buffer
                     count <= count + 1; // Increment the buffer count
-                    buff_count = count;
+                    wptr <= wptr + 1; // Increment the write pointer
+                    buff_count <= count;
                 end
             end
         end
