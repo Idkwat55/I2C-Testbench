@@ -328,6 +328,7 @@ module manual_tb;
   streamGen_empty , streamGen_full , streamGen_tvalid ;
   wire  [3:0] streamGen_buff_count;
   wire [7:0] streamGen_tdata ;
+
   reg [2:0] streamGen_sel = 3'b000;
   reg [2:0] sel_mux = 3'd001;
   reg streamGen_clk_sel = 0;
@@ -559,7 +560,7 @@ module manual_tb;
     s_axis_cmd_valid_m1 = 1'b1;
     #100 ; // Sync to Master 1 - 2 clocks 
     s_axis_cmd_valid_m1 = 1'b0;
-    #100_00;
+    #100_00_00;
 
     // Annouce END & Close files
     $fdisplay(console, "\n\t\t  END OF TEST [ Simulation tIme : %t ns/ps ] \t", $realtime);
