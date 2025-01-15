@@ -1,4 +1,4 @@
-module muxDataGen (
+module muxDataGen_w (
   input wire [2:0] sel,
   input wire [7:0] tdata,
   input wire tvalid,

@@ -1,17 +1,18 @@
 module stream_gen (
+
     input wire [7:0] Din, // Data input
     input wire push, clk, rst, op_en, // Control signals
     input wire tready, // Ready signal from receiver
 
-    output reg [3:0] buff_count, // Tracks the number of valid entries in the buffer
+    output reg [1023:0] buff_count, // Tracks the number of valid entries in the buffer
     output reg [7:0] tdata, // Data to be transmitted
     output reg tvalid, // Data validity signal
     output reg tlast, // Indicates last piece of data
     output reg empty, full // Buffer status
 );
 
-    reg [7:0] buffer [15:0]; // Buffer to hold 16 8-bit data entries
-    reg [3:0] count, rptr, wptr; // Count of valid entries in the buffer
+    reg [7:0] buffer [1023:0]; // Buffer to hold 16 8-bit data entries
+    reg [1023:0] count, rptr, wptr; // Count of valid entries in the buffer
 
     // Main process: handles data reading, writing, and buffer management
     always @(posedge clk or posedge rst) begin
