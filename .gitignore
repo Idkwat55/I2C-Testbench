@@ -1,8 +1,14 @@
+#Folders
 .vscode/
 .settings/
 work/
 output/
-.project
+
+# Files
+Testcase to do.txt
+Readme.md.new
+
+# Extensions
 *.xml
 *.code-workspace
 *.out
@@ -15,3 +21,4 @@ output/
 *.exe
 *.pdb
 *.ilk
+*.project
