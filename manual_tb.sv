@@ -24,7 +24,7 @@ module manual_tb;
   reg [7:0] s_axis_data_tdata_m1 = 0;
   reg s_axis_data_tvalid_m1 ;
   reg s_axis_data_tlast_m1 = 0;
-  reg m_axis_data_tready_m1 = 0;
+  reg m_axis_data_tready_m1 ;
   reg scl_i_m1 = 1;
   reg sda_i_m1 = 1;
   reg [15:0] prescale_m1 = 0;
@@ -330,9 +330,14 @@ module manual_tb;
   wire  [3:0] streamGen_buff_count;
   wire [7:0] streamGen_tdata ;
 
-  reg [2:0] streamGen_sel = 3'b000;
-  reg [2:0] sel_mux = 3'b001;
-  reg [2:0] sel_mux_2 = 3'b001;
+  reg [2:0] streamGen_sel = 3'b000; // Clock selector for streamGen - 3'b000 is dedicated clk of streamGen
+  // master1 = 3'd1 
+  // master2 = 3'd2,
+  // slave1  = 3'd3,
+  // slave2  = 3'd4,
+  // slave3  = 3'd5;
+  reg [2:0] sel_mux = 3'b001; // Select muxDatagen_init_1    
+  reg [2:0] sel_mux_2 = 3'b001; // Select muxDatagen_init_2
   reg streamGen_clk_sel = 0;
   reg streamGen_tready_reg = 0;
 
@@ -401,7 +406,7 @@ module manual_tb;
     s_axis_data_tready_s3_reg = s_axis_data_tready_s3;
   end
 
-  muxDataGen_w muxDatagen_init_1 (
+  muxDataGen_w muxDatagen_w_1 (
     .sel(sel_mux),
     .tdata(streamGen_tdata_reg),
     .tvalid(streamGen_tvalid_reg),
@@ -417,7 +422,7 @@ module manual_tb;
     .tready(streamGen_tready)
   );
 
-  muxDataGen_w muxDatagen_init_2 (
+  muxDataGen_w muxDatagen_w_2 (
     .sel(sel_mux_2),
     .tdata(streamGen_tdata_reg),
     .tvalid(streamGen_tvalid_reg),
@@ -432,6 +437,86 @@ module manual_tb;
     .tlast_s2(s_axis_data_tlast_s2_w), .tlast_s3(s_axis_data_tlast_s3_w),
     .tready(streamGen_tready)
   );
+
+
+  // Var for read mux
+  reg [3:0] sel_mux_r_1 = 3'b001; // default master 1
+  wire [7:0] streamRead_tdata_wire;
+  wire streamRead_tvalid_wire, streamRead_tlast_wire;
+  reg streamRead_tready_reg;
+
+  wire m_axis_data_tready_m1_wire, m_axis_data_tready_m2_wire, m_axis_data_tready_s1_wire,
+  m_axis_data_tready_s2_wire, m_axis_data_tready_s3_wire;
+  reg [7:0] m_axis_data_tdata_m1_reg, m_axis_data_tdata_m2_reg, m_axis_data_tdata_s1_reg,
+  m_axis_data_tdata_s2_reg, m_axis_data_tdata_s3_reg;
+  reg m_axis_data_tvalid_m1_reg, m_axis_data_tvalid_m2_reg, m_axis_data_tvalid_s1_reg,
+  m_axis_data_tvalid_s2_reg, m_axis_data_tvalid_s3_reg;
+  reg m_axis_data_tlast_m1_reg, m_axis_data_tlast_m2_reg, m_axis_data_tlast_s1_reg,
+  m_axis_data_tlast_s2_reg, m_axis_data_tlast_s3_reg;
+
+  always @(*) begin // Assigning values to read_mux_1
+    streamRead_tdata = streamRead_tdata_wire;
+    streamRead_tvalid = streamRead_tvalid_wire;
+    streamRead_tlast = streamRead_tlast_wire;
+    streamRead_tready_reg = streamRead_tready;
+    m_axis_data_tready_m1 = m_axis_data_tready_m1_wire;
+    m_axis_data_tready_m2 = m_axis_data_tready_m2_wire;
+    m_axis_data_tready_s1 = m_axis_data_tready_s1_wire;
+    m_axis_data_tready_s2 = m_axis_data_tready_s2_wire;
+    m_axis_data_tready_s3 = m_axis_data_tready_s3_wire;
+    m_axis_data_tdata_m1_reg = m_axis_data_tdata_m1;
+    m_axis_data_tdata_m2_reg = m_axis_data_tdata_m2;
+    m_axis_data_tdata_s1_reg = m_axis_data_tdata_s1;
+    m_axis_data_tdata_s2_reg = m_axis_data_tdata_s2;
+    m_axis_data_tdata_s3_reg = m_axis_data_tdata_s3;
+    m_axis_data_tvalid_m1_reg = m_axis_data_tvalid_m1;
+    m_axis_data_tvalid_m2_reg = m_axis_data_tvalid_m2;
+    m_axis_data_tvalid_s1_reg = m_axis_data_tvalid_s1;
+    m_axis_data_tvalid_s2_reg = m_axis_data_tvalid_s2;
+    m_axis_data_tvalid_s3_reg = m_axis_data_tvalid_s3;
+    m_axis_data_tlast_m1_reg = m_axis_data_tlast_m1;
+    m_axis_data_tlast_m2_reg = m_axis_data_tlast_m2;
+    m_axis_data_tlast_s1_reg = m_axis_data_tlast_s1;
+    m_axis_data_tlast_s2_reg = m_axis_data_tlast_s2;
+    m_axis_data_tlast_s3_reg = m_axis_data_tlast_s3;
+  end
+
+
+  muxDataGen_r muxDataGen_r_1 (
+    .sel(sel_mux_r_1),
+    .tdata(streamRead_tdata_wire),
+    .tvalid(streamRead_tvalid_wire),
+    .tlast(streamRead_tlast_wire),
+    .tready_m1(m_axis_data_tready_m1_wire), .tready_m2(m_axis_data_tready_m2_wire), .tready_s1(m_axis_data_tready_s1_wire),
+    .tready_s2(m_axis_data_tready_s2_wire), .tready_s3(m_axis_data_tready_s3_wire),
+    .tdata_m1(m_axis_data_tdata_m1_reg), .tdata_m2(m_axis_data_tdata_m2_reg), .tdata_s1(m_axis_data_tdata_s1_reg),
+    .tdata_s2(m_axis_data_tdata_s2_reg), .tdata_s3(m_axis_data_tdata_s3_reg),
+    .tvalid_m1(m_axis_data_tvalid_m1_reg), .tvalid_m2(m_axis_data_tvalid_m2_reg), .tvalid_s1(m_axis_data_tvalid_s1_reg),
+    .tvalid_s2(m_axis_data_tvalid_s2_reg), .tvalid_s3(m_axis_data_tvalid_s3_reg),
+    .tlast_m1(m_axis_data_tlast_m1_reg), .tlast_m2(m_axis_data_tlast_m2_reg), .tlast_s1(m_axis_data_tlast_s1_reg),
+    .tlast_s2(m_axis_data_tlast_s2_reg), .tlast_s3(m_axis_data_tlast_s3_reg),
+    .tready(streamRead_tready_reg)
+  );
+
+  // Vars for read 
+  reg streamRead_rst = 0;
+  reg [7:0] streamRead_tdata;
+  reg streamRead_tvalid, streamRead_tlast;
+  wire streamRead_tready, streamRead_data_out, streamRead_data_valid, streamRead_done;
+
+  // Read module
+  stream_read streamRead_init (
+    .clk(streamGen_clk), .rst(streamRead_rst), // Clock and reset
+    .tdata(streamRead_tdata), // Data from the source
+    .tvalid(streamRead_tvalid), // Valid signal from the source
+    .tlast(streamRead_tlast), // Last signal from the source
+    .tready(streamRead_tready), // Ready signal to the source
+
+    .data_out(streamRead_data_out), // Data output after read
+    .data_valid(streamRead_data_valid), // Valid flag for the data_out
+    .done(streamRead_done) // Indicates transfer is complete
+  );
+
 
   initial begin : clk_m1_gen
     clk_m1 = 0;
@@ -484,6 +569,8 @@ module manual_tb;
   end
 
   reg [7:0] streamGen_Data_holder [1023:0]; // 1024 * 8 = 8192 bits = 1KiB
+  reg [1023:0] insertData2_streamGen_current_count = 0, insertData2_streamGen_to_gen_OR_read = 0;
+  reg insertData2_streamGen_busy = 0, insertData2_streamGen_done = 0 , insertData2_streamGen_icmd =0 ;
 
   task insertData2_streamGen  (
 
@@ -491,7 +578,7 @@ module manual_tb;
     insertData2_streamGen_write_data, // Write data to *_streamGen_Data_holder and streamGen buffer
     insertData2_streamGen_output_data, // Output data to modules from streamGen buffer
 
-    output reg [1023:0] insertData2_streamGen_current_count, // *_current_count - keeps current pointer, doesnt mean data is altered in holder
+    output [1023:0] insertData2_streamGen_current_count_i, // *_current_count - keeps current pointer, doesnt mean data is altered in holder
     input  [1023:0] insertData2_streamGen_to_gen_OR_read, // How many byte to generate or output
     output insertData2_streamGen_busy, insertData2_streamGen_done, insertData2_streamGen_icmd // icmd - invalid command
 
@@ -508,7 +595,7 @@ module manual_tb;
     if (insertData2_streamGen_reset) begin // Reset
 
       streamGen_rst = 1'b1;
-      insertData2_streamGen_current_count = 0;
+      insertData2_streamGen_current_count_i = 0;
       #2;
 
     end
@@ -516,7 +603,7 @@ module manual_tb;
 
       insertData2_streamGen_busy = 1'b1;
 
-      if (insertData2_streamGen_to_gen_OR_read > insertData2_streamGen_current_count)
+      if ( (insertData2_streamGen_output_data & (insertData2_streamGen_to_gen_OR_read > insertData2_streamGen_current_count_i)) | ( insertData2_streamGen_write_data & (insertData2_streamGen_current_count_i >= 'd1024) ) )
         insertData2_streamGen_icmd = 1'b1;
       else
         insertData2_streamGen_icmd = 1'b0;
@@ -534,22 +621,21 @@ module manual_tb;
             #2;
             streamGen_push = 1'b0;
             #2;
-            streamGen_Data_holder[insertData2_streamGen_current_count + tmp_count] = tmp_data;
+            streamGen_Data_holder[insertData2_streamGen_current_count_i + tmp_count] = tmp_data;
             tmp_count = tmp_count + 1;
 
           end
-          insertData2_streamGen_current_count = insertData2_streamGen_current_count + tmp_count;
+          insertData2_streamGen_current_count_i = insertData2_streamGen_current_count_i + tmp_count;
         end
 
         else if (insertData2_streamGen_output_data) begin
-          tmp_count = 0;
-          for (tmp_count_int = 0; tmp_count_int < insertData2_streamGen_to_gen_OR_read; tmp_count_int = tmp_count_int + 1) begin
-            tmp_data = streamGen_Data_holder[insertData2_streamGen_current_count - tmp_count];
+          tmp_count = streamGen_buff_count - insertData2_streamGen_to_gen_OR_read;
+          while (streamGen_buff_count > tmp_count) begin
             {streamGen_push, streamGen_op_en} = {1'b0, 1'b1};
             #2;
-            tmp_count = tmp_count + 1;
+
           end
-          insertData2_streamGen_current_count = insertData2_streamGen_current_count - tmp_count;
+          insertData2_streamGen_current_count_i = insertData2_streamGen_current_count_i - insertData2_streamGen_to_gen_OR_read;
         end
 
       end
@@ -565,17 +651,31 @@ module manual_tb;
   integer log_file;
   integer console;
 
+  always @(*) begin
+    if (insertData2_streamGen_icmd)
+      $fdisplay(console, "\t [%t][ Task ][ insertData2_streamGen ]  Invalid command for insertData2_streamGen ", $realtime);
+    if (insertData2_streamGen_busy)
+      $fdisplay(console, "\t [%t][ Task ][ insertData2_streamGen ]  Busy for insertData2_streamGen : Operating = %d bytes, buffer pointer = %d",
+        $realtime, insertData2_streamGen_to_gen_OR_read, insertData2_streamGen_current_count);
+    if (insertData2_streamGen_done)
+      $fdisplay(console, "\t [%t][ Task ][ insertData2_streamGen ]  Done for insertData2_streamGen : Operating = %d bytes, buffer pointer = %d",
+        $realtime, insertData2_streamGen_to_gen_OR_read, insertData2_streamGen_current_count);
+  end
+
+
+
   initial
 
   begin : main_initial
 
     log_file = $fopen("Simulation.log");
+    $timeformat(-9, 1, " ns", 4);
 
     // broadcast ( log + console
     console =   log_file | 32'b1;
 
 
-    $fdisplay(console, "\t\t STARTED TESTBENCH [ Simulation Time : %t ns/ps ] \t", $realtime);
+    $fdisplay(console, "\t\t STARTED TESTBENCH [ Simulation Time : %t ] \t", $realtime);
 
     {rst_m1,rst_m2,rst_s1,rst_s2,rst_s3,streamGen_rst} = 6'b111111 ;
 
@@ -596,12 +696,15 @@ module manual_tb;
     $fdisplay(console,"\t [%t]  SDA/SCL HIGH for \t m1 m2 s1 s2 s3 ", $realtime);
 
     #100;
+    streamRead_rst = 1'b1;
+    #2;
+    streamRead_rst = 1'b0;
 
     // Slave 1
     device_address_s1 = 7'h22;
 
     // Slave 2
-    device_address_s2 = 7'h2a;
+    device_address_s2 = 7'h55;
 
     // Slave 3
     device_address_s3 = 7'h37;
@@ -615,11 +718,11 @@ module manual_tb;
 
     prescale_m1 = 'd2;
     prescale_m2 = 'd2;
-
-    $fdisplay(console,"\t [%t]  Prescale set to 0b%b (%d) ", $realtime, prescale_m1, prescale_m1);
-
+    stop_on_idle_m1 = 1'b1;
+    stop_on_idle_m2 = 1'b1;
     #100;
 
+    $fdisplay(console,"\t [%t]  Prescale set to 0b%b (%d) ", $realtime, prescale_m1, prescale_m1);
     $fdisplay(console,"\t [%t]  Stop_on_idle set to HIGH ", $realtime);
 
     /*  $fmonitor(console,"\t [Monitor] [stream_gen] : streamGen_Din = %b streamGen_push = %b , streamGen_op_en = %b, streamGen_rst = %b, \n\t                    ----  streamGen_tready = %b, streamGen_tlast = %b, streamGen_empty = %b, \n\t                    ----  streamGen_full = %b, streamGen_tvalid = %b, streamGen_buff_count = %b, streamGen_tdata = %b \n\t [%t]\n",
@@ -638,24 +741,26 @@ module manual_tb;
     streamGen_sel = 3'b000;
 
     sel_mux = 3'd001;
+//    insertData2_streamGen (1'b1, 1'b0, 1'b0, insertData2_streamGen_current_count, 0, insertData2_streamGen_busy, insertData2_streamGen_done, insertData2_streamGen_icmd);
+//    #2;
+//    insertData2_streamGen_to_gen_OR_read = 'd10;
+//    insertData2_streamGen(1'b0, 1'b1, 1'b0, insertData2_streamGen_current_count, insertData2_streamGen_to_gen_OR_read, insertData2_streamGen_busy, insertData2_streamGen_done, insertData2_streamGen_icmd);
+   
+     {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h11, 1'b1, 1'b0, 1'b0 } ;
+     #2;
 
+     {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h22, 1'b1, 1'b0, 1'b0 };
+     #2;
 
+     {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h33, 1'b1, 1'b0, 1'b0 };
+     #2;
 
+     {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h44, 1'b1, 1'b0, 1'b0 };
+     #2;
 
-    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h11, 1'b1, 1'b0, 1'b0 } ;
-    #2;
+     {streamGen_push, streamGen_op_en } = 3'b00;
+     #2;
 
-    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h22, 1'b1, 1'b0, 1'b0 };
-    #2;
-
-    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h33, 1'b1, 1'b0, 1'b0 };
-    #2;
-
-    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h44, 1'b1, 1'b0, 1'b0 };
-    #2;
-
-    {streamGen_push, streamGen_op_en } = 3'b00;
-    #2;
     streamGen_sel = 3'b001;
     #2;
 
@@ -666,6 +771,8 @@ module manual_tb;
     s_axis_data_tdata_m1 = 8'h00;
 
     // Start pushing data
+   // insertData2_streamGen(1'b1, 1'b0, 1'b1, insertData2_streamGen_current_count, 'd5, insertData2_streamGen_busy, insertData2_streamGen_done, insertData2_streamGen_icmd);
+
     streamGen_op_en = 1'b1;
     s_axis_cmd_valid_m1 = 1'b1;
 
@@ -676,7 +783,7 @@ module manual_tb;
 
     // Annouce END & Close files
 
-    $fdisplay(console, "\n\t\t  END OF TEST [ Simulation tIme : %t ns/ps ] \t", $realtime);
+    $fdisplay(console, "\n\t\t  END OF TEST [ Simulation tIme : %t ] \t", $realtime);
     $fdisplay(console, "\n\t\t  Log file is generated at pwd/Simulation_LOG.log");
     $fdisplay(console, "\t\t  VCD file is generated at pwd/Simulation_dump.vcd \n");
 
