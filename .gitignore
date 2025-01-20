@@ -3,6 +3,7 @@
 .settings/
 work/
 output/
+obj_dir/
 
 # Files
 Testcase to do.txt
