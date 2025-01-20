@@ -1,0 +1,44 @@
+Running test...
+test 1: write
+[master] Write data a:0x50 d:00 04 11 22 33 44
+[slave2] Got start bit
+[data_sink] Got frame AXIStreamFrame(data=bytearray(b'\x00\x04\x11"3D'), keep=[1, 1, 1, 1, 1, 1], id=[0, 0, 0, 0, 0, 0], dest=[0, 0, 0, 0, 0, 0], user=[0, 0, 0, 0, 0, 0], last_cycle_user=0)
+test 2: read
+[data_source] Sending frame AXIStreamFrame(data=bytearray(b'\x11"3D'), keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[master] Write data a:0x50 d:00 04
+[slave2] Got start bit
+[slave2] Got start bit
+[data_sink] Got frame AXIStreamFrame(data=bytearray(b'\x00\x04'), keep=[1, 1], id=[0, 0], dest=[0, 0], user=[0, 0], last_cycle_user=0)
+[master] Read data a:0x50 d:11 22 33 44
+test 3: read with delays
+[data_source] Sending frame AXIStreamFrame(data=bytearray(b'\x11"3D'), keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[master] Write data a:0x50 d:00 04
+[slave2] Got start bit
+[slave2] Got start bit
+[data_sink] Got frame AXIStreamFrame(data=bytearray(b'\x00\x04'), keep=[1, 1], id=[0, 0], dest=[0, 0], user=[0, 0], last_cycle_user=0)
+[master] Read data a:0x50 d:11 22 33 44
+test 4: access slave 2
+[master] Write data a:0x51 d:00 04 11 22 33 44
+[slave2] Got start bit
+[slave2] Address matched (write)
+[slave2] Set address pointer 0x0004
+[slave2] Write data a:0x0004 d:11
+[slave2] Write data a:0x0005 d:22
+[slave2] Write data a:0x0006 d:33
+[slave2] Write data a:0x0007 d:44
+00 00 00 00 11 22 33 44 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[slave2] Got stop bit
+[master] Write data a:0x51 d:00 04
+[slave2] Got start bit
+[slave2] Address matched (write)
+[slave2] Set address pointer 0x0004
+[slave2] Got repeated start bit
+[slave2] Address matched (read)
+[slave2] Read data a:0x0004 d:11
+[slave2] Read data a:0x0005 d:22
+[slave2] Read data a:0x0006 d:33
+[slave2] Read data a:0x0007 d:44
+[slave2] Got NACK
+[master] Read data a:0x51 d:11 22 33 44
+[slave2] Got stop bit

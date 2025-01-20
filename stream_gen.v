@@ -29,7 +29,7 @@ module stream_gen (
             wptr <= 0;
         end else begin
             // Update buffer count and status signals
-            buff_count = count;
+            buff_count <= count;
             full <= (count == 15); // Full when count reaches 15
             empty <= (count == 0); // Empty when count is 0
 
