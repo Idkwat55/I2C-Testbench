@@ -781,6 +781,74 @@ module manual_tb;
 $stop;
   //  #100_00_00;
 
+// Test Case 2: Read from Slave1
+    $fdisplay(console, "\n=== Test Case 2: Read from Slave1 ===\n");
+    
+    // Setup slave1 with data to be read
+    streamGen_rst = 1'b1;
+    #4;
+    streamGen_sel = 3'b011; // Select slave1 for data
+    sel_mux = 3'b011;
+    
+    // Load data into slave1's buffer
+    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'hAA, 1'b1, 1'b0, 1'b0 };
+    #2;
+    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'hBB, 1'b1, 1'b0, 1'b0 };
+    #2;
+    {streamGen_push, streamGen_op_en } = 2'b00;
+    #2;
+
+    // Configure master1 for read
+    {s_axis_cmd_address_m1, s_axis_cmd_start_m1, s_axis_cmd_read_m1, s_axis_cmd_write_m1, 
+     s_axis_cmd_write_multiple_m1, s_axis_cmd_stop_m1} = {7'h22, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1};
+    
+    m_axis_data_tready_m1 = 1'b1; // Ready to receive data
+    s_axis_cmd_valid_m1 = 1'b1;
+    #100;
+    s_axis_cmd_valid_m1 = 1'b0;
+    
+    // Wait for transaction to complete
+    wait(busy_m1 == 1'b0);
+    $fdisplay(console, "[%t] Test Case 2 Completed - Read from Slave1", $realtime);
+    #1000;
+    
+    // Test Case 3: Write from Master2 to Slave2
+    $fdisplay(console, "\n=== Test Case 3: Write from Master2 to Slave2 ===\n");
+    
+    streamGen_rst = 1'b1;
+    #4;
+    streamGen_sel = 3'b000;
+    sel_mux = 3'b010; // Select m2
+    
+    // Load data for master2
+    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h55, 1'b1, 1'b0, 1'b0 };
+    #2;
+    {streamGen_Din, streamGen_push, streamGen_rst, streamGen_op_en } = {8'h66, 1'b1, 1'b0, 1'b0 };
+    #2;
+    {streamGen_push, streamGen_op_en } = 3'b00;
+    #2;
+    streamGen_sel = 3'b010;
+    #2;
+
+    // master2 for write
+    {s_axis_cmd_address_m2, s_axis_cmd_start_m2, s_axis_cmd_read_m2, s_axis_cmd_write_m2, 
+     s_axis_cmd_write_multiple_m2, s_axis_cmd_stop_m2} = {7'h2a, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1};
+    
+    s_axis_data_tdata_m2=8'h0A;
+    streamGen_op_en = 1'b1;
+    s_axis_cmd_valid_m2 = 1'b1;
+    #100;
+    s_axis_cmd_valid_m2 = 1'b0;
+    
+    // Wait to complete
+    wait(busy_m2 == 1'b0);
+    $fdisplay(console, "[%t] Test Case 3 Completed Write from Master2 to Slave2", $realtime);
+    #1000;
+
+
+
+
+
     // Annouce END & Close files
 
     $fdisplay(console, "\n\t\t  END OF TEST [ Simulation time : %t ] \t", $realtime);
