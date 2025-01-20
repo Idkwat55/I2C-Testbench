@@ -1,0 +1,164 @@
+Running test...
+test 1: write
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 0, 0, 1, 1)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[data_source] Sending frame AXIStreamFrame(data=bytearray(b'\x00\x04\x11"3D'), keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave2] Got start bit
+[slave1] Got start bit
+[slave1] Address matched (write)
+[slave1] Set address pointer 0x0004
+[slave1] Write data a:0x0004 d:11
+[slave1] Write data a:0x0005 d:22
+[slave1] Write data a:0x0006 d:33
+[slave1] Write data a:0x0007 d:44
+[slave1] Got stop bit
+00 00 00 00 11 22 33 44 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+test 2: read
+[data_source] Sending frame AXIStreamFrame(data=bytearray(b'\x00\x04'), keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 0, 0, 1, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 1, 0, 0, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave2] Got start bit
+[slave1] Got start bit
+[slave1] Address matched (write)
+[slave1] Set address pointer 0x0004
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 1, 0, 0, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave2] Got start bit
+[slave1] Got repeated start bit
+[slave1] Address matched (read)
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 1, 0, 0, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Read data a:0x0004 d:11
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 1, 0, 0, 1)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Read data a:0x0005 d:22
+[slave1] Read data a:0x0006 d:33
+[data_sink] Got frame AXIStreamFrame(data=bytearray(b'\x11"3D'), keep=[1, 1, 1, 1], id=[0, 0, 0, 0], dest=[0, 0, 0, 0], user=[0, 0, 0, 0], last_cycle_user=0)
+[slave1] Read data a:0x0007 d:44
+[slave1] Got NACK
+[slave1] Got stop bit
+test 3: write to slave 2
+[cmd_source] Sending frame AXIStreamFrame(data=[(81, 0, 0, 0, 1, 1)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[data_source] Sending frame AXIStreamFrame(data=bytearray(b'\x00\x04D3"\x11'), keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave2] Got start bit
+[slave1] Got start bit
+[slave2] Address matched (write)
+[slave2] Set address pointer 0x0004
+[slave2] Write data a:0x0004 d:44
+[slave2] Write data a:0x0005 d:33
+[slave2] Write data a:0x0006 d:22
+[slave2] Write data a:0x0007 d:11
+[slave2] Got stop bit
+00 00 00 00 11 22 33 44 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+test 4: read from slave 2
+[data_source] Sending frame AXIStreamFrame(data=bytearray(b'\x00\x04'), keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[cmd_source] Sending frame AXIStreamFrame(data=[(81, 0, 0, 0, 1, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[cmd_source] Sending frame AXIStreamFrame(data=[(81, 0, 1, 0, 0, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave2] Got start bit
+[slave1] Got start bit
+[slave2] Address matched (write)
+[slave2] Set address pointer 0x0004
+[cmd_source] Sending frame AXIStreamFrame(data=[(81, 0, 1, 0, 0, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave2] Got repeated start bit
+[slave1] Got start bit
+[slave2] Address matched (read)
+[cmd_source] Sending frame AXIStreamFrame(data=[(81, 0, 1, 0, 0, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave2] Read data a:0x0004 d:44
+[cmd_source] Sending frame AXIStreamFrame(data=[(81, 0, 1, 0, 0, 1)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave2] Read data a:0x0005 d:33
+[slave2] Read data a:0x0006 d:22
+[data_sink] Got frame AXIStreamFrame(data=bytearray(b'D3"\x11'), keep=[1, 1, 1, 1], id=[0, 0, 0, 0], dest=[0, 0, 0, 0], user=[0, 0, 0, 0], last_cycle_user=0)
+[slave2] Read data a:0x0007 d:11
+[slave2] Got NACK
+[slave2] Got stop bit
+test 5: write to nonexistent device
+[data_source] Sending frame AXIStreamFrame(data=bytearray(b'\x00\x04\xde\xad\xbe\xef'), keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[cmd_source] Sending frame AXIStreamFrame(data=[(82, 0, 0, 0, 1, 1)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave2] Got start bit
+[slave1] Got start bit
+test 6: write all zero data
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 0, 0, 1, 1)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[data_source] Sending frame AXIStreamFrame(data=bytearray(b'\x00\x10\x00\x00\x00\x00'), keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave2] Got start bit
+[slave1] Got start bit
+test 7: burst write and read
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 0, 0, 1, 1)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Address matched (write)
+[slave1] Set address pointer 0x0010
+[slave1] Write data a:0x0010 d:00
+[slave1] Write data a:0x0011 d:00
+[slave1] Write data a:0x0012 d:00
+[data_source] Sending frame AXIStreamFrame(data=bytearray(b'\x00\x08\x124Vx\x9a\xbc\xde\xf0'), keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Write data a:0x0013 d:00
+[slave1] Got stop bit
+[slave2] Got start bit
+[slave1] Got start bit
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 0, 0, 1, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Address matched (write)
+[slave1] Set address pointer 0x0008
+[slave1] Write data a:0x0008 d:12
+[slave1] Write data a:0x0009 d:34
+[slave1] Write data a:0x000a d:56
+[slave1] Write data a:0x000b d:78
+[slave1] Write data a:0x000c d:9a
+[slave1] Write data a:0x000d d:bc
+[slave1] Write data a:0x000e d:de
+[data_source] Sending frame AXIStreamFrame(data=bytearray(b'\x00\x08'), keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Write data a:0x000f d:f0
+[slave1] Got stop bit
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 1, 0, 0, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave2] Got start bit
+[slave1] Got start bit
+[slave1] Address matched (write)
+[slave1] Set address pointer 0x0008
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 1, 0, 0, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave2] Got start bit
+[slave1] Got repeated start bit
+[slave1] Address matched (read)
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 1, 0, 0, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Read data a:0x0008 d:12
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 1, 0, 0, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Read data a:0x0009 d:34
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 1, 0, 0, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Read data a:0x000a d:56
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 1, 0, 0, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Read data a:0x000b d:78
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 1, 0, 0, 0)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Read data a:0x000c d:9a
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 1, 0, 0, 1)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Read data a:0x000d d:bc
+[slave1] Read data a:0x000e d:de
+[data_sink] Got frame AXIStreamFrame(data=bytearray(b'\x124Vx\x9a\xbc\xde\xf0'), keep=[1, 1, 1, 1, 1, 1, 1, 1], id=[0, 0, 0, 0, 0, 0, 0, 0], dest=[0, 0, 0, 0, 0, 0, 0, 0], user=[0, 0, 0, 0, 0, 0, 0, 0], last_cycle_user=0)
+[slave1] Read data a:0x000f d:f0
+[slave1] Got NACK
+[slave1] Got stop bit
+test 8: write overlapping address
+[data_source] Sending frame AXIStreamFrame(data=bytearray(b'\x00\x02\xaa\xbb'), keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 0, 0, 1, 1)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave2] Got start bit
+[slave1] Got start bit
+[slave1] Address matched (write)
+[slave1] Set address pointer 0x0002
+[slave1] Write data a:0x0002 d:aa
+[slave1] Write data a:0x0003 d:bb
+[slave1] Got stop bit
+test 9: non-sequential write and read
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 0, 0, 1, 1)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[data_source] Sending frame AXIStreamFrame(data=bytearray(b'\x00\x05U'), keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave2] Got start bit
+[slave1] Got start bit
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 0, 0, 1, 1)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Address matched (write)
+[slave1] Set address pointer 0x0005
+[data_source] Sending frame AXIStreamFrame(data=bytearray(b'\x00\n\xaa'), keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Write data a:0x0005 d:55
+[slave1] Got stop bit
+[slave2] Got start bit
+[slave1] Got start bit
+test 10: write to invalid memory
+[cmd_source] Sending frame AXIStreamFrame(data=[(80, 0, 0, 0, 1, 1)], keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Address matched (write)
+[slave1] Set address pointer 0x000a
+[data_source] Sending frame AXIStreamFrame(data=bytearray(b'\x00@\xee\xff\xcc\xdd'), keep=None, id=None, dest=None, user=None, last_cycle_user=None)
+[slave1] Write data a:0x000a d:aa
+[slave1] Got stop bit
+[slave2] Got start bit
+[slave1] Got start bit
