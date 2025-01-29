@@ -4,6 +4,7 @@
 work/
 output/
 obj_dir/
+sigasi-doc/
 
 # Files
 Testcase to do.txt
@@ -23,3 +24,4 @@ Readme.md.new
 *.pdb
 *.ilk
 *.project
+*.gitignore

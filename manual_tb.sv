@@ -304,7 +304,7 @@ module manual_tb;
     .device_address_mask(device_address_mask_s3)
   );
 
-  always @(*) begin // for scl and sda bus / line
+  always @(*) begin : scl_sda // for scl and sda bus / line
     scl_i_m1 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
     scl_i_m2 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
     scl_i_s1 = scl_o_m1 & scl_o_m2 & scl_o_s1 & scl_o_s2 & scl_o_s3;
@@ -341,7 +341,7 @@ module manual_tb;
   reg streamGen_clk_sel = 0;
   reg streamGen_tready_reg = 0;
 
-  always @(*) begin // for streamGen
+  always @(*) begin : stream_gen // for streamGen
     streamGen_tready_reg = streamGen_tready;
     case (streamGen_sel)
       3'b000: streamGen_clk_sel = streamGen_clk;
@@ -372,7 +372,7 @@ module manual_tb;
   wire s_axis_data_tvalid_m1_w, s_axis_data_tvalid_m2_w, s_axis_data_tvalid_s1_w, s_axis_data_tvalid_s2_w, s_axis_data_tvalid_s3_w;
   wire s_axis_data_tlast_m1_w, s_axis_data_tlast_m2_w, s_axis_data_tlast_s1_w, s_axis_data_tlast_s2_w, s_axis_data_tlast_s3_w;
 
-  always @(*) begin // for muxDatagen_init
+  always @(*) begin : muxDatagen_init_pt1 // for muxDatagen_init
     s_axis_data_tdata_m1 = s_axis_data_tdata_m1_w;
     s_axis_data_tdata_m2 = s_axis_data_tdata_m2_w;
     s_axis_data_tdata_s1 = s_axis_data_tdata_s1_w;
@@ -395,7 +395,7 @@ module manual_tb;
   reg streamGen_tlast_reg = 0, streamGen_tvalid_reg = 0;
   reg s_axis_data_tready_m1_reg = 0, s_axis_data_tready_m2_reg = 0, s_axis_data_tready_s1_reg = 0, s_axis_data_tready_s2_reg = 0, s_axis_data_tready_s3_reg = 0;
 
-  always @(*) begin // for muxDatagen_init
+  always @(*) begin : muxDatagen_init_pt2 // for muxDatagen_init
     streamGen_tdata_reg = streamGen_tdata;
     streamGen_tlast_reg = streamGen_tlast;
     streamGen_tvalid_reg = streamGen_tvalid;
@@ -489,7 +489,7 @@ module manual_tb;
     .done(streamRead_done) // Indicates transfer is complete
   );
 
-  always @(*) begin // Assigning values to read_mux_1
+  always @(*) begin  : read_mux_1 // Assigning values to read_mux_1
     streamRead_tdata = streamRead_tdata_wire;
     streamRead_tvalid = streamRead_tvalid_wire;
     streamRead_tlast = streamRead_tlast_wire;
@@ -778,8 +778,8 @@ module manual_tb;
 
     #100 ; // Sync to Master 1 - 2 clocks 
     s_axis_cmd_valid_m1 = 1'b0;
-$stop;
-  //  #100_00_00;
+    $stop;
+    //  #100_00_00;
 
 // Test Case 2: Read from Slave1
     $fdisplay(console, "\n=== Test Case 2: Read from Slave1 ===\n");
