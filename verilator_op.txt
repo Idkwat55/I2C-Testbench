@@ -1,4 +1,0 @@
-make: Entering directory '/C/Users/risik/Documents/Me/Project/Intern-Tunichal_Vivado/Modified One Wire/Modified One Wire.srcs/sources_1/new/obj_dir'
-/usr/share/verilator/include/verilated.mk:72: *** Unsupported: GNU Make cannot build in directories containing spaces, build elsewhere: '/C/Users/risik/Documents/Me/Project/Intern-Tunichal_Vivado/Modified One Wire/Modified One Wire.srcs/sources_1/new/obj_dir'.  Stop.
-make: Leaving directory '/C/Users/risik/Documents/Me/Project/Intern-Tunichal_Vivado/Modified One Wire/Modified One Wire.srcs/sources_1/new/obj_dir'
-%Error: make -C obj_dir -f Vmanual_tb.mk -j 1 exited with 2
