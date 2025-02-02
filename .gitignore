@@ -9,6 +9,11 @@ sigasi-doc/
 # Files
 Testcase to do.txt
 Readme.md.new
+Block Diagram.svg
+Dependencies.svg
+latest_run_iverilog.txt
+verilator.f
+verilator_op.txt
 
 # Extensions
 *.xml
