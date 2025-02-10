@@ -22,6 +22,7 @@
 // 1 - 20 ns, 0 - 10 ns  on a 100Mhz clock
 // output line idle high
 // transfers whats in buffer until its empty, then goes to stop condition and then idle
+// clk must be 2x higher than scl
 
 module combiner(
     input wire scl, input wire sda,
@@ -31,10 +32,10 @@ module combiner(
     output reg buff_full, // Buffer is full
     output reg bus_held , // this module uses bus
     output reg buff_empty, // Buffer is empty
-    output reg [1:0] invalid // to show vaarious invalids or conditions
+    output reg [1:0] invalid // to show various invalids or conditions
 );
 
-    reg [256:0] sda_buff;
+    reg [255:0] sda_buff;
     reg [8:0] sda_buff_wptr, sda_buff_rptr;
     reg [31:0] bit_period;
     reg start_detected_reg, stop_detected_reg;
@@ -67,7 +68,7 @@ module combiner(
             buff_empty <= 0;
             buff_count <= 0;
         end
-        if (start_detected_reg) begin
+        if (start_detected_reg & !stop_detected_reg) begin
             if (!buff_full) begin
                 sda_buff[sda_buff_wptr] <= sda;
                 sda_buff_wptr <= (sda_buff_wptr + 1 == 255) ? 0 : sda_buff_wptr + 1;
@@ -89,32 +90,31 @@ module combiner(
         end
     end
 
-    reg sda_prev, scl_prev;
+    reg scl_reg = 0;
+
+    always @(clk) begin
+        scl_reg = scl;
+    end
 
 
     // Sample SDA and SCL on the rising edge of the clock
-    always @(posedge clk or posedge rst) begin
+    always @(negedge sda or posedge rst) begin
         if (rst) begin
-            sda_prev <= 1'b1; // Assume SDA is idle high
-            scl_prev <= 1'b1; // Assume SCL is idle high
-        end else begin
-            sda_prev <= sda;
-            scl_prev <= scl;
+            start_detected_reg = 0;
+        end else if (scl == 1 && scl_reg == 1) begin
+            start_detected_reg = 1;
+            stop_detected_reg = 0;
         end
     end
 
-
-
-
-    always @(clk) begin
-        start_detected_reg   = (sda_prev == 1 && sda == 0) && (scl == 1); // START: SDA falls while SCL is high
-
+    always @(posedge sda or posedge rst) begin
+        if (rst) begin
+            stop_detected_reg = 0;
+        end else if (scl == 1 && scl_reg == 1) begin
+            stop_detected_reg = 1;
+            start_detected_reg = 0;
+        end
     end
-
-    always @(clk) begin
-        stop_detected_reg =  (sda_prev == 0 && sda == 1) && (scl == 1); // STOP: SDA rises while SCL is high
-    end
-
 
 
 
@@ -132,6 +132,8 @@ module combiner(
                         bus_held <= 0;
                         sg_out <= high;
                         busy <= 0;
+                        if (start_detected_reg)
+                            state <=start_condition;
                     end
 
                     start_condition : begin
@@ -213,11 +215,11 @@ module combiner(
 
                     invalids : begin
                         invalid <= invalid_reg;
-                        rst <= 1;
+                        //rst <= 1;
                         if (bit_period == invalid_period) begin
                             bit_period <= 0;
                             state <= idle_state;
-                            rst <= 0;
+                            // rst <= 0;
                         end
                         else begin
                             bit_period <= bit_period + 1;
