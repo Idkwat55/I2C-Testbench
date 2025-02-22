@@ -77,6 +77,8 @@ module combiner(
             buff_count <= sda_buff_wptr - sda_buff_rptr;
 
             if ( (sda_buff_wptr[8] ^ sda_buff_rptr[8]) && ( sda_buff_rptr[7:0] == sda_buff_wptr [7:0] ) ) begin
+                sda_buff_wptr <= 0;
+                sda_buff_rptr <= 0;
                 buff_full <= 1;
             end
             else
@@ -101,7 +103,7 @@ module combiner(
     always @(negedge sda or posedge rst) begin
         if (rst) begin
             start_detected_reg = 0;
-        end else if (scl == 1 && scl_reg == 1) begin
+        end else if (scl == 1 && scl_reg == 0) begin
             start_detected_reg = 1;
             stop_detected_reg = 0;
         end
@@ -110,7 +112,7 @@ module combiner(
     always @(posedge sda or posedge rst) begin
         if (rst) begin
             stop_detected_reg = 0;
-        end else if (scl == 1 && scl_reg == 1) begin
+        end else if (scl == 0 && scl_reg == 1) begin
             stop_detected_reg = 1;
             start_detected_reg = 0;
         end
