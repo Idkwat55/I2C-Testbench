@@ -24,4 +24,4 @@ Work 	     		      :  Running pre-made testbenches.
 					             Analysis of multiple large files, finding and fixing bugs, git collaboartions, 
 					             testbench planning, realization (from observing pre-made testbenches).
 
-Result       	      : 471 lines
+Result       	      : 871 lines
